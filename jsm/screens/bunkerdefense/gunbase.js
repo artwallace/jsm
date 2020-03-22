@@ -1,5 +1,5 @@
 import { actor2dbase } from '../../engine/actor2dbase.js';
-import { calcAngleInRadians, getPointFromAngle, convertFromDegreesToRadians } from '../../engine/utilities.js';
+import { calcAngleInRadians, getPointFromAngle, convertFromDegreesToRadians, checkIfPointIsInsideRect } from '../../engine/utilities.js';
 
 export class gunbase extends actor2dbase {
     //TODO: move non-generic stuff to derived classes.
@@ -67,15 +67,21 @@ export class gunbase extends actor2dbase {
         this.muzzleX = this.barrelBaseX + this.barrelLength * Math.cos(this.angle);
         this.muzzleY = this.barrelBaseY + this.barrelLength * Math.sin(this.angle);
 
-        //TODO: only fire when in game area, not dashboard, etc.
-        //TODO: always stop though
-        if (this.game.mouseDown &&
-            this.game.mouseDownEvent.button === 0) {
-                this.isInFiringMode = true;
+        if (!this.isInFiringMode &&
+            this.game.mouseDown &&
+            this.game.mouseDownEvent.button === 0 &&
+            checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top)) {
+            this.isInFiringMode = true;
         }
-        else if (this.game.mouseUp &&
+        else if (this.isInFiringMode &&
+            this.game.mouseUp &&
             this.game.mouseUpEvent.button === 0) {
-                this.isInFiringMode = false;
+            this.isInFiringMode = false;
+        }
+
+        if (this.isInFiringMode &&
+            !checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top)) {
+            this.isInFiringMode = false;
         }
 
         if (this.isInFiringMode) {
@@ -108,7 +114,7 @@ export class gunbase extends actor2dbase {
             this.game.view.ctx.lineWidth = this.debugLineWidth;
             this.game.view.ctx.strokeStyle = this.debugMinMaxColor;
 
-            
+
             this.game.view.ctx.beginPath();
             // min angle
             this.game.view.ctx.moveTo(this.barrelBaseX, this.barrelBaseY);

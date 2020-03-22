@@ -176,9 +176,9 @@ export class gamebase {
             this.view.setTransformToLevel();
             //this.drawBackgroundDebug(interp)
             this.level.drawDebugActors(interp);
-            this.drawDebugMouse();
-
+            
             this.view.setTransformToView();
+            this.drawDebugMouse();
             this.drawDebugInfo(interp);
         }
     }
@@ -594,10 +594,10 @@ export class gamebase {
         this.view.ctx.strokeStyle = 'yellow';
 
         this.view.ctx.beginPath();
-        this.view.ctx.moveTo(this.level.mouseX, 0);
-        this.view.ctx.lineTo(this.level.mouseX, this.level.levelHeight);
-        this.view.ctx.moveTo(0, this.level.mouseY);
-        this.view.ctx.lineTo(this.level.levelWidth, this.level.mouseY);
+        this.view.ctx.moveTo(this.view.mouseX, 0);
+        this.view.ctx.lineTo(this.view.mouseX, this.view.viewHeight);
+        this.view.ctx.moveTo(0, this.view.mouseY);
+        this.view.ctx.lineTo(this.view.viewWidth, this.view.mouseY);
         this.view.ctx.closePath();
         this.view.ctx.stroke();
 
@@ -628,9 +628,9 @@ export class gamebase {
             adjY = -30;
         }
 
-        this.view.ctx.fillText(c, this.level.mouseX + adjX, this.level.mouseY + adjY);
-        this.view.ctx.fillText(cp, this.level.mouseX + adjX, this.level.mouseY + adjY + 12);
-        this.view.ctx.fillText(w, this.level.mouseX + adjX, this.level.mouseY + adjY + 12 * 2);
+        this.view.ctx.fillText(c, this.view.mouseX + adjX, this.view.mouseY + adjY);
+        this.view.ctx.fillText(cp, this.view.mouseX + adjX, this.view.mouseY + adjY + 12);
+        this.view.ctx.fillText(w, this.view.mouseX + adjX, this.view.mouseY + adjY + 12 * 2);
     }
 
     //#endregion
