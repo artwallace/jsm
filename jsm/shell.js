@@ -1,15 +1,22 @@
 import { shellbase } from './engine/shellbase.js';
-import { mainmenu } from './screens/mainmenu/mainmenu.js';
+import { splash } from './screens/splash/splash.js';
+//import { mainmenu } from './screens/mainmenu/mainmenu.js';
 
 export class shell extends shellbase {
     game;
+    mainmenuFactory = null;
 
     constructor() {
         super();
     }
 
     start() {
-        this.startMainMenu();
+        import('./screens/mainmenu/mainmenu.js')
+            .then(module => {
+                this.mainmenuFactory = function (shell) { return module.mainmenu.factory(shell) };
+            });
+        //this.startMainMenu();
+        this.startSplashScreen();
     }
 
     gameEnding() {
@@ -24,13 +31,31 @@ export class shell extends shellbase {
             this.game.postinitialize();
             this.game.start();
         }
+        else if (this.mainmenuFactory != null)
+        {
+            this.game = this.mainmenuFactory(this);
+            // this.game.launchfunc = null;
+            this.game.preinitialize();
+            this.game.initialize();
+            this.game.postinitialize();
+            this.game.start();
+        }
         else {
-            this.startMainMenu();
+            //this.startMainMenu();
+            this.startSplashScreen();
         }
     }
 
-    startMainMenu() {
-        this.game = new mainmenu(this, 60);
+    // startMainMenu() {
+    //     this.game = new mainmenu(this, 60);
+    //     this.game.preinitialize();
+    //     this.game.initialize();
+    //     this.game.postinitialize();
+    //     this.game.start();
+    // }
+
+    startSplashScreen() {
+        this.game = new splash(this, 30);
         this.game.preinitialize();
         this.game.initialize();
         this.game.postinitialize();
