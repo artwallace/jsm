@@ -1,0 +1,12 @@
+body {
+    overflow: hidden;
+    background: black;
+    margin: 0px;
+    user-select: none;
+}
+
+canvas {
+    background: black;
+    border: 0px;
+    user-select: none;
+}

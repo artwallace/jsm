@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>JSM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="manifest" href="/jsm/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jsm/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/jsm/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/jsm/favicon-16x16.png">
+    <link rel="icon" href="/jsm/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <canvas></canvas>
+    <!-- This won't load on iPhone Safari (and Chrome), Mac Safari, PlayStation 4, Edge (pre-Chromium), etc. -->
+    <!-- Mac Safari shows this error, but does not give a file or line number: -->
+    <!-- SyntaxError: Unexpected token '='. Expected an opening '(' before a method's parameter list. -->
+    <!-- Research shows this is because these browsers do not yet support public class fields -->
+    <!-- https://www.reddit.com/r/learnjavascript/comments/e05pvh/declare_class_field_in_safariedge/ -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Class_fields -->
+    <!-- And private class fields are right around the corner.... -->
+    <!-- This is just a learning exercise so for now we will wait for older browers to catch up. -->
+    <script type="module" src="shell.js"></script>
+
+    <!-- Alternate start method #1 -->
+    <!-- <script type="module">
+        import { startshell } from './shell.js';
+        startshell();
+    </script> -->
+
+    <!-- Alternate start method #2 -->
+    <!-- <script type="module">
+        import { shell } from './shell.js';
+        let s = new shell();
+        s.start();
+    </script> -->
+</body>
+
+</html>
