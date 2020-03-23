@@ -42,7 +42,7 @@ export class launcherbtn extends button2dbase {
 
         if (position === undefined ||
             position === null ||
-            !(position[position] !== null)) {
+            !(btnPosition[position] !== null)) {
             throw ('Invalid position');
         }
 

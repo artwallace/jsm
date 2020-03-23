@@ -50,6 +50,7 @@ export class about extends button2dbase {
     draw(interp) {
         super.draw(interp);
 
+        //TODO: should probably make this standard in button2base, or create linkbutton2dbase.
         if (this.isHilighted) {
             this.game.view.ctx.lineWidth = 1;
             this.game.view.ctx.strokeStyle = this.hoverTextColor;

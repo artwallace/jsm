@@ -20,6 +20,9 @@ import { ovaltree } from './ovaltree.js';
 import { palmtree } from './palmtree.js';
 import { cappedtree } from './cappedtree.js';
 import { backbutton } from './backbutton.js';
+import { aagunpanel } from './aagunpanel.js';
+import { cannonpanel } from './cannonpanel.js';
+import { mortarpanel } from './mortarpanel.js';
 import { getRandomIntFromRange, checkIfPointIsInsideRect } from '../../engine/utilities.js';
 
 export class level1 extends level2dbase {
@@ -66,6 +69,10 @@ export class level1 extends level2dbase {
 
         this.backbutton = new backbutton(this.game);
         this.addActor(this.backbutton);
+
+        this.addActor(new aagunpanel(this.game));
+        this.addActor(new cannonpanel(this.game));
+        this.addActor(new mortarpanel(this.game));
 
         this.addActor(new sun(this.game));
 
@@ -194,6 +201,7 @@ export class level1 extends level2dbase {
         }
     }
 
+    //TODO: Move to a request model so that this happens with consistent timing.
     switchGuns() {
         this.bunkergun.readyForDeletion = true;
 
@@ -207,6 +215,27 @@ export class level1 extends level2dbase {
             this.bunkergun = new aagun(this.game);
         }
 
+        this.addActor(this.bunkergun);
+    }
+
+    //TODO: Move to a request model so that this happens with consistent timing.
+    switchToAagun() {
+        this.bunkergun.readyForDeletion = true;
+        this.bunkergun = new aagun(this.game);
+        this.addActor(this.bunkergun);
+    }
+
+    //TODO: Move to a request model so that this happens with consistent timing.
+    switchToCannon() {
+        this.bunkergun.readyForDeletion = true;
+        this.bunkergun = new cannon(this.game);
+        this.addActor(this.bunkergun);
+    }
+
+    //TODO: Move to a request model so that this happens with consistent timing.
+    switchToMortar() {
+        this.bunkergun.readyForDeletion = true;
+        this.bunkergun = new mortar(this.game);
         this.addActor(this.bunkergun);
     }
 

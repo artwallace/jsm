@@ -13,7 +13,7 @@ export class backbutton extends button2dbase {
         this.text = 'back to main menu';
 
         // This is a fixed world, will not move.
-        this.x = this.game.level.levelCenterX;
+        this.x = this.game.level.levelWidth - (this.width / 2) - 25;
         this.y = this.game.level.levelHeight - this.height;
 
         this.updatePosition();
