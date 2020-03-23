@@ -10,6 +10,7 @@ export class button2dbase extends actor2dbase {
 
     textFont = '12px Arial';
     textColor = 'black';
+    hoverTextColor = 'black';
     textAlign = 'center';
     textBaseline = 'middle';
     text = 'button';
@@ -69,7 +70,12 @@ export class button2dbase extends actor2dbase {
         this.game.view.ctx.fillRect(this.left, this.top, this.width, this.height);
 
         this.game.view.ctx.font = this.textFont;
-        this.game.view.ctx.fillStyle = this.textColor;
+        if (this.isHilighted) {
+            this.game.view.ctx.fillStyle = this.hoverTextColor;
+        }
+        else {
+            this.game.view.ctx.fillStyle = this.textColor;
+        }
         this.game.view.ctx.textAlign = this.textAlign;
         this.game.view.ctx.textBaseline = this.textBaseline;
         this.game.view.ctx.fillText(this.text, this.x, this.y);

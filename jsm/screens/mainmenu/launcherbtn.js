@@ -112,6 +112,7 @@ export class launcherbtn extends button2dbase {
                 this.textColor = this.colorDisabled;
                 break;
         }
+        this.hoverTextColor = this.textColor;
 
         if (this.game.mouseUp &&
             this.game.mouseUpEvent.button === 0 &&

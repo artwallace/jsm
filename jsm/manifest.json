@@ -13,10 +13,10 @@
             "type": "image/png"
         }
     ],
-    "start_url": "https://crankedup.com/jsm/",
+    "start_url": "https://artwallace.github.io/jsm/jsm/",
     "background_color": "#000000",
     "display": "fullscreen",
     "orientation": "landscape",
-    "scope": "/jsm/",
+    "scope": "/jsm/jsm/",
     "theme_color": "#000000"
 }
