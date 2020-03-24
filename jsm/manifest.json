@@ -3,12 +3,12 @@
     "name": "JSM",
     "icons": [
         {
-            "src": "/jsm/android-chrome-192x192.png",
+            "src": "/jsm/jsm/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/jsm/android-chrome-512x512.png",
+            "src": "/jsm/jsm/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
