@@ -1,7 +1,7 @@
 import { actor2dbase } from '../../../engine/actor2dbase.js';
 
 export class ju52 extends actor2dbase {
-    imagePath = './screens/bunkerdefense/ju52-512.png';
+    imagePath = './screens/bunkerdefense/enemy/ju52-512.png';
     loaded = false;
 
     constructor(game) {
