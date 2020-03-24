@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { getRandomIntFromRange, getRandomFromArray } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { getRandomIntFromRange, getRandomFromArray } from '../../../engine/utilities.js';
 
 //TODO: Need a real solution to having actors that depend on having info about other actors.
 //TODO: Trees depend on knowing the ground level of the map.

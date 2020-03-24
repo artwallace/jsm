@@ -1,5 +1,5 @@
 import { treebase } from './treebase.js';
-import { getRandomIntFromRange, getRandomFromArray } from '../../engine/utilities.js';
+import { getRandomIntFromRange, getRandomFromArray } from '../../../engine/utilities.js';
 
 export class cappedtree extends treebase {
     trunkColor = '#9b7653';

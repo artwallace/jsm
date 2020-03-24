@@ -6,7 +6,7 @@
         {
             "label": "copy to local web server",
             "type": "shell",
-            "command": "robocopy c:\\Users\\art\\source\\repos\\jsm-github\\jsm \\\\10.10.10.50\\Web\\jsm /XD .vscode /FFT /MIR",
+            "command": "robocopy c:\\Users\\art\\source\\repos\\jsm-github\\jsm \\\\10.10.10.50\\Web\\jsm\\jsm /XD .vscode /FFT /MIR",
             "group": {
                 "kind": "build",
                 "isDefault": true

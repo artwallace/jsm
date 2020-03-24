@@ -1,4 +1,4 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
 // import { calcAngleInRadians, getPointFromAngle } from '../../engine/utilities.js';
 
 export class aagunbullet extends actor2dbase {

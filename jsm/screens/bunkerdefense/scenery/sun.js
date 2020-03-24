@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { getRandomIntFromRange } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { getRandomIntFromRange } from '../../../engine/utilities.js';
 
 export class sun extends actor2dbase {
     //TODO: add sunlight rays that slowly rotate.

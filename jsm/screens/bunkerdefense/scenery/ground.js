@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { dashboard } from './dashboard.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { dashboard } from '../ui/dashboard.js';
 
 //TODO: Better to just hardcode dashboard height into this height to reduce dependencies? Make height 125?
 export class ground extends actor2dbase {

@@ -1,8 +1,8 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
 // import { calcAngleInRadians, getPointFromAngle } from '../../engine/utilities.js';
 
-export class cannonexplosion extends actor2dbase {
-    startAngle = 0;
+export class mortarexplosion extends actor2dbase {
+    startAngle = Math.PI * 1;
     endAngle = Math.PI * 2;
     width = 1;
     height = 1;
@@ -31,15 +31,7 @@ export class cannonexplosion extends actor2dbase {
         super.update(delta);
 
         let time = this.game.loop.getCurrentTime();
-
         this.percent = (time - this.startTime) / this.duration;
-        // if (this.percent < 1) {
-        //     this.percent = 1;
-        // }
-        // else if (this.percent > 100) {
-        //     this.percent = 100;
-        // }
-
         this.scale = 1 - this.percent;
 
         if (time - this.startTime >= this.duration) {

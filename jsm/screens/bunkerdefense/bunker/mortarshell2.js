@@ -1,6 +1,6 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
 import { mortarexplosion } from './mortarexplosion.js';
-import { checkIfRectOverlapsRect, clamp } from '../../engine/utilities.js';
+import { checkIfRectOverlapsRect, clamp } from '../../../engine/utilities.js';
 
 export class mortarshell2 extends actor2dbase {
     startAngle = 0;

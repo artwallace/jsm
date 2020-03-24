@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { checkIfRectOverlapsRect, clamp } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { checkIfRectOverlapsRect, clamp } from '../../../engine/utilities.js';
 
 export class crosshair extends actor2dbase {
     radius = 30;

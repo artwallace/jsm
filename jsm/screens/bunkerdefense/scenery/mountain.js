@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { getRandomIntFromRange, getRandomFromRange, getRandomFromArray } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { getRandomIntFromRange, getRandomFromRange, getRandomFromArray } from '../../../engine/utilities.js';
 
 export class mountain extends actor2dbase {
     //TODO: make color lighter for mountains that are on top.

@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { calcAngleInRadians, getPointFromAngle, convertFromDegreesToRadians, checkIfPointIsInsideRect } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { calcAngleInRadians, getPointFromAngle, convertFromDegreesToRadians, checkIfPointIsInsideRect } from '../../../engine/utilities.js';
 
 export class gunbase extends actor2dbase {
     //TODO: move non-generic stuff to derived classes.

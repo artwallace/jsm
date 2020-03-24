@@ -1,7 +1,7 @@
 import { treebase } from './treebase.js';
-import { getRandomIntFromRange, getRandomFromArray } from '../../engine/utilities.js';
+import { getRandomIntFromRange, getRandomFromArray } from '../../../engine/utilities.js';
 
-export class roundtree extends treebase {
+export class ovaltree extends treebase {
     trunkColor = '#9b7653';
     leafColor = '#45a27d';
 
@@ -13,7 +13,8 @@ export class roundtree extends treebase {
 
     startAngle = 0;
     endAngle = Math.PI * 2;
-    leafRadius = 0;
+    leafRadiusX = 0;
+    leafRadiusY = 0;
 
     constructor(game, x, y, layer) {
         super(game, x, y, layer);
@@ -24,7 +25,8 @@ export class roundtree extends treebase {
         this.trunkHeight = getRandomIntFromRange(20, 30);
         this.trunkThickness = getRandomIntFromRange(2, 4);
 
-        this.leafRadius = getRandomIntFromRange(7, 15);
+        this.leafRadiusX = getRandomIntFromRange(8, 14);
+        this.leafRadiusY = getRandomIntFromRange(10, 15);
     }
 
     draw(interp) {
@@ -39,14 +41,14 @@ export class roundtree extends treebase {
         this.game.view.ctx.stroke();
 
         this.game.view.ctx.beginPath();
-        this.game.view.ctx.arc(this.x, this.y - this.trunkHeight, this.leafRadius, this.startAngle, this.endAngle);
+        this.game.view.ctx.ellipse(this.x, this.y - this.trunkHeight, this.leafRadiusX, this.leafRadiusY, 0, this.startAngle, this.endAngle);
         this.game.view.ctx.closePath();
         this.game.view.ctx.fillStyle = this.leafColor;
         this.game.view.ctx.fill();
     }
 
-    static roundTreeAcrossRangeFactory(game, minX, maxX, groundY, layer) {
+    static ovalTreeAcrossRangeFactory(game, minX, maxX, groundY, layer) {
         let tX = getRandomIntFromRange(minX, maxX);
-        return new roundtree(game, tX, groundY, layer);
+        return new ovaltree(game, tX, groundY, layer);
     }
 }

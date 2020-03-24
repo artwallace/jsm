@@ -1,4 +1,4 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
 import { cannonexplosion } from './cannonexplosion.js';
 
 export class cannonshell extends actor2dbase {

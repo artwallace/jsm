@@ -1,4 +1,4 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
 
 export class bunker extends actor2dbase {
     startAngle = 1 * Math.PI;

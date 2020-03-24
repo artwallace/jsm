@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { getCenteredRectInRect } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { getCenteredRectInRect } from '../../../engine/utilities.js';
 
 export class levelinfo extends actor2dbase {
     color = 'rgba(128, 128, 128, 0.25)';

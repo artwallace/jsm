@@ -1,4 +1,4 @@
-import { button2dbase } from '../../engine/button2dbase.js';
+import { button2dbase } from '../../../engine/button2dbase.js';
 
 export class backbutton extends button2dbase {
     constructor(game) {

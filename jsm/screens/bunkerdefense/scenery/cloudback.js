@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../engine/actor2dbase.js';
-import { getRandomIntFromRange } from '../../engine/utilities.js';
+import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { getRandomIntFromRange } from '../../../engine/utilities.js';
 
 //TODO: Vary the color
 export class cloudback extends actor2dbase {

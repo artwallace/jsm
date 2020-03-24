@@ -1,5 +1,5 @@
 import { treebase } from './treebase.js';
-import { getRandomIntFromRange, getRandomFromRange, getRandomFromArray, getPointFromAngle, convertFromDegreesToRadians } from '../../engine/utilities.js';
+import { getRandomIntFromRange, getRandomFromRange, getRandomFromArray, getPointFromAngle, convertFromDegreesToRadians } from '../../../engine/utilities.js';
 
 export class palmtree extends treebase {
     trunkColor = '#9b7653';
