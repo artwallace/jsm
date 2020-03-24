@@ -36,7 +36,7 @@ export class title extends actor2dbase {
 
         this.setDimenions();
 
-        let time = this.game.loop.getCurrentTime();
+        let time = this.game.loop.currentTime;
         let elapsedTime = time - this.#lastupdatetime;
         if (elapsedTime >= this.#minTimeBetweenProgressUpdates) {
             this.#lastupdatetime = time;

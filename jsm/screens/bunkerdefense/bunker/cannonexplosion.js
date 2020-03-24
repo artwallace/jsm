@@ -24,13 +24,13 @@ export class cannonexplosion extends actor2dbase {
     constructor(game, startX, startY, startHeading) {
         super(game, startX, startY, startHeading);
 
-        this.startTime = this.game.loop.getCurrentTime();
+        this.startTime = this.game.loop.currentTime;
     }
 
     update(delta) {
         super.update(delta);
 
-        let time = this.game.loop.getCurrentTime();
+        let time = this.game.loop.currentTime;
 
         this.percent = (time - this.startTime) / this.duration;
         // if (this.percent < 1) {

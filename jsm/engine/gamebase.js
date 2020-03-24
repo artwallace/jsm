@@ -526,7 +526,7 @@ export class gamebase {
 
         if (this.#debugInfoLevel >= 1) {
             this.debuginfoAddLine('Press i key to toggle debug mode, level: ' + this.#debugInfoLevel + ' of ' + this.#debugInfoMaxLevel);
-            this.debuginfoAddLine('fps: ' + Math.round(this.loop.getFps()));
+            this.debuginfoAddLine('fps: ' + Math.round(this.loop.fps) + ' / ' + Math.round(this.loop.maxFps));
         }
 
         if (this.#debugInfoLevel >= 2) {

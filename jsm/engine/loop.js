@@ -139,15 +139,19 @@ export class loop {
         requestAnimationFrame(this.animateFrameCallback.bind(this));
     }
 
-    getCurrentTime() {
+    get currentTime() {
         return this.#currentTime;
     }
 
-    getLastFrameTime() {
+    get lastFrameTime() {
         return this.#lastFrameTimeMs;
     }
 
-    getFps() {
+    get fps() {
         return this.#fps;
+    }
+
+    get maxFps() {
+        return this.#maxFps;
     }
 }

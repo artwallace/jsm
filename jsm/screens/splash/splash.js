@@ -15,13 +15,13 @@ export class splash extends gamebase {
         this.view = new view2dunscaledclipped(this);
         this.level = new level(this);
 
-        this.#starttime = this.loop.getCurrentTime();
+        this.#starttime = this.loop.currentTime;
     }
 
     update() {
         super.update();
 
-        let time = this.loop.getCurrentTime();
+        let time = this.loop.currentTime;
         let elapsedTime = time - this.#starttime;
         if (this.shell.mainmenuFactory != undefined &&
             this.shell.mainmenuFactory != null &&

@@ -148,7 +148,7 @@ export class gunbase extends actor2dbase {
             return;
         }
 
-        let time = this.game.loop.getCurrentTime();
+        let time = this.game.loop.currentTime;
         if (time - this.timeOfLastShot >= this.minTimeBetweenShots) {
             this.timeOfLastShot = time;
             this.ammoInMagazine -= this.ammoPerFire;
@@ -165,14 +165,14 @@ export class gunbase extends actor2dbase {
         }
 
         this.reloading = true;
-        this.reloadStartTime = this.game.loop.getCurrentTime();
+        this.reloadStartTime = this.game.loop.currentTime;
         this.ammoInMagazine = 0;
         this.checkReload();
     }
 
     checkReload() {
         if (this.reloading) {
-            let time = this.game.loop.getCurrentTime();
+            let time = this.game.loop.currentTime;
             if (time - this.reloadStartTime >= this.magazineReloadTime) {
                 this.reload();
             }
@@ -186,7 +186,7 @@ export class gunbase extends actor2dbase {
     }
 
     status() {
-        let time = this.world.loop.getCurrentTime();
+        let time = this.game.loop.currentTime;
 
         let status = 'Ammo: ' + this.ammoInMagazine + ' / ' + this.magazineSize;
         status += ', ';
