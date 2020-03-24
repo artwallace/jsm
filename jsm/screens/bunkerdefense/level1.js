@@ -117,9 +117,6 @@ export class level1 extends level2dbase {
                 case 'u':
                     this.bunker.upgrade();
                     break;
-                case 'r':
-                    this.bunkergun.reloadBegin();
-                    break;
                 case 'g':
                     this.switchGuns();
                     break;

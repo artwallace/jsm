@@ -67,6 +67,11 @@ export class gunbase extends actor2dbase {
         this.muzzleX = this.barrelBaseX + this.barrelLength * Math.cos(this.angle);
         this.muzzleY = this.barrelBaseY + this.barrelLength * Math.sin(this.angle);
 
+        if (this.game.keyboardDown &&
+            this.game.keyboardDownEvent.key === 'r') {
+            this.reloadBegin();
+        }
+
         if (!this.isInFiringMode &&
             this.game.mouseDown &&
             this.game.mouseDownEvent.button === 0 &&
@@ -113,7 +118,6 @@ export class gunbase extends actor2dbase {
 
             this.game.view.ctx.lineWidth = this.debugLineWidth;
             this.game.view.ctx.strokeStyle = this.debugMinMaxColor;
-
 
             this.game.view.ctx.beginPath();
             // min angle

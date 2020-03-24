@@ -20,6 +20,9 @@ export class gunpanelbase extends actor2dbase {
 
     isHilighted = false;
 
+    key = '';
+    keyCapitalized = '';
+
     constructor(game, position) {
         super(game, 0, 0, 0);
 
@@ -77,6 +80,12 @@ export class gunpanelbase extends actor2dbase {
         this.game.view.ctx.textAlign = 'center';
         this.game.view.ctx.textBaseline = 'top';
         this.game.view.ctx.fillText(this.title, this.x, this.top + 5);
+
+        this.game.view.ctx.font = '14px Arial';
+        this.game.view.ctx.fillStyle = '#222222';
+        this.game.view.ctx.textAlign = 'right';
+        this.game.view.ctx.textBaseline = 'top';
+        this.game.view.ctx.fillText(this.key + ' key', this.right - 5, this.top + 5);
     }
 
     calcPosition() {
