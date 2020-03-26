@@ -22,10 +22,21 @@ export class about extends button2dbase {
         this.normalColor = '#ffffff00';
         this.hoverColor = '#ffffff00';
 
+        //OLDER browsers do not support these
         this.game.view.ctx.font = this.textFont;
         let metrics = this.game.view.ctx.measureText(this.text);
         this.width = metrics.width;
         this.height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+        if (this.width === undefined ||
+            this.width === null ||
+            Number.isNaN(this.width)) {
+            this.width = 350;
+        }
+        if (this.height === undefined ||
+            this.height === null ||
+            Number.isNaN(this.height)) {
+            this.height = 25;
+        }
 
         this.setDimenions();
     }
@@ -38,7 +49,7 @@ export class about extends button2dbase {
         if (this.game.mouseUp &&
             this.game.mouseUpEvent.button === 0 &&
             this.isHilighted) {
-                window.open(this.text, '_blank');
+            window.open(this.text, '_blank');
         }
     }
 
