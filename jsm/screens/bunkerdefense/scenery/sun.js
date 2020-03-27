@@ -32,9 +32,9 @@ export class sun extends actor2dbase {
         this.height = this.radius * 2;
     }
 
-    update(delta) {
-        super.update(delta);
-    }
+    // update(delta) {
+    //     super.update(delta);
+    // }
 
     draw(interp) {
         super.draw(interp);
