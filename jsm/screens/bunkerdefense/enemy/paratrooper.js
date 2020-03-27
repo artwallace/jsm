@@ -1,4 +1,5 @@
 import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { checkIfRectOverlapsRect } from '../../../engine/utilities.js';
 
 export class paratrooper extends actor2dbase {
     //TODO: Replace placeholder graphics with real ones.
