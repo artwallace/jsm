@@ -77,7 +77,7 @@ export class ju52 extends actor2dbase {
             this.#speedCurrent = this.#speedWhileJumping;
         }
 
-        this.actionFlyAcross(delta, this.#speed);
+        this.actionFlyAcross(delta, this.#speedCurrent);
 
         if (this.x < -this.halfWidth) {
             this.readyForDeletion = true;
