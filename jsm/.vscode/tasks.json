@@ -6,10 +6,15 @@
         {
             "label": "copy to local web server",
             "type": "shell",
-            "command": "robocopy c:\\Users\\art\\source\\repos\\jsm-github\\jsm \\\\10.10.10.50\\Web\\jsm\\jsm /XD .vscode /FFT /MIR",
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "windows": {
+                "command": "robocopy c:\\Users\\art\\source\\repos\\jsm-github\\jsm \\\\10.10.10.50\\Web\\jsm\\jsm /XD .vscode /FFT /MIR"
+            },
+            "linux": {
+                "command": "scp -r /home/art/Documents/jsm/jsm/ root@10.10.10.50:/srv/smb/web/jsm/jsm/"
             }
         }
     ]
