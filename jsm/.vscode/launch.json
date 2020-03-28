@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against local web server",
-            "url": "http://10.10.10.50/jsm/",
+            "name": "Debug on local web server with Chrome",
+            "url": "http://10.10.10.50/jsm/jsm/",
             "webRoot": "${workspaceFolder}"
         }
     ]
