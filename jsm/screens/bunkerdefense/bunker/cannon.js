@@ -4,23 +4,25 @@ import { cannonshell } from './cannonshell.js';
 export class cannon extends gunbase {
     //TODO: move non-generic stuff from base to here and other derived classes.
 
-    barrelLength = 50;
-
-    minAngleInDegrees = 30;
-
-    thickness = 10;
-    portOffset = 14;
-
-    minTimeBetweenShots = 1500;//millisecs
-    magazineSize = 4;
-    ammoInMagazine = this.magazineSize;
-    magazineReloadTime = 4000;//millisecs
-
     constructor(game) {
         super(game, 0, 0, 0);
 
-        this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
-        this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
+        this.barrelLength = 50;
+
+        this.minAngleInDegrees = 30;
+
+        this.thickness = 10;
+        this.portOffset = 14;
+
+        this.minTimeBetweenShots = 1500;//millisecs
+        this.magazineSize = 4;
+        this.ammoInMagazine = this.magazineSize;
+        this.magazineReloadTime = 4000;//millisecs
+
+        this.minFiringDist = 200;
+
+        // this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
+        // this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
     }
 
     spawnBullet() {

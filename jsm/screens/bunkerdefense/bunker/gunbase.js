@@ -1,5 +1,5 @@
 import { actor2dbase } from '../../../engine/actor2dbase.js';
-import { calcAngleInRadians, getPointFromAngle, convertFromDegreesToRadians, checkIfPointIsInsideRect } from '../../../engine/utilities.js';
+import { calcAngleInRadians, getPointFromAngle, convertFromDegreesToRadians, checkIfPointIsInsideRect, getDistanceBetweenPoints } from '../../../engine/utilities.js';
 
 export class gunbase extends actor2dbase {
     //TODO: move non-generic stuff to derived classes.
@@ -24,10 +24,11 @@ export class gunbase extends actor2dbase {
     thickness = 5;
     portOffset = 8;
     angle = 0;
-    minAngleInDegrees = 20;
+    minAngleInDegrees = 20;//TODO: Can't support negative angles because of wraparound. fix it
     minAngle = 0;
     maxAngle = 0;
     angleToMouse = 0;
+    minFiringDist = 0;
 
     debugMinMaxColor = 'red';
     debugAimColor = 'green';
@@ -40,6 +41,7 @@ export class gunbase extends actor2dbase {
     initialize() {
         super.initialize();
 
+        //TODO: use util func
         this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
         this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
         this.angle = convertFromDegreesToRadians(270);
@@ -79,17 +81,17 @@ export class gunbase extends actor2dbase {
         if (!this.isInFiringMode &&
             this.game.mouseDown &&
             this.game.mouseDownEvent.button === 0 &&
-            checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top)) {
+            this.angleToMouse >= this.minAngle &&
+            this.angleToMouse <= this.maxAngle &&
+            checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top) &&
+            getDistanceBetweenPoints(this.game.level.mouseX, this.game.level.mouseY, this.barrelBaseX, this.barrelBaseY) >= this.minFiringDist) {
             this.isInFiringMode = true;
         }
         else if (this.isInFiringMode &&
-            this.game.mouseUp &&
-            this.game.mouseUpEvent.button === 0) {
-            this.isInFiringMode = false;
-        }
-
-        if (this.isInFiringMode &&
-            !checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top)) {
+            (this.angleToMouse < this.minAngle || this.angleToMouse > this.maxAngle) ||
+            (this.game.mouseUp && this.game.mouseUpEvent.button === 0) ||
+            !checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top) ||
+            getDistanceBetweenPoints(this.game.level.mouseX, this.game.level.mouseY, this.barrelBaseX, this.barrelBaseY) < this.minFiringDist) {
             this.isInFiringMode = false;
         }
 
@@ -123,6 +125,7 @@ export class gunbase extends actor2dbase {
             this.game.view.ctx.lineWidth = this.debugLineWidth;
             this.game.view.ctx.strokeStyle = this.debugMinMaxColor;
 
+            // begin
             this.game.view.ctx.beginPath();
             // min angle
             this.game.view.ctx.moveTo(this.barrelBaseX, this.barrelBaseY);
@@ -130,6 +133,10 @@ export class gunbase extends actor2dbase {
             // max angle
             this.game.view.ctx.moveTo(this.barrelBaseX, this.barrelBaseY);
             this.game.view.ctx.lineTo(maxX, maxY);
+            // min firing dist
+            this.game.view.ctx.moveTo(this.barrelBaseX, this.barrelBaseY);
+            this.game.view.ctx.arc(this.barrelBaseX, this.barrelBaseY, this.minFiringDist, this.minAngle, this.maxAngle);
+            // end
             this.game.view.ctx.closePath();
             this.game.view.ctx.stroke();
 

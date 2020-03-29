@@ -4,18 +4,23 @@ import { mortarshell2 } from './mortarshell2.js';
 export class mortar extends gunbase {
     //TODO: move non-generic stuff from base to here and other derived classes.
 
-    minAngleInDegrees = 50;
-
-    minTimeBetweenShots = 50;//millisecs
-    magazineSize = 1;
-    ammoInMagazine = this.magazineSize;
-    magazineReloadTime = 200;//millisecs
-
     constructor(game) {
         super(game, 0, 0, 0);
 
-        this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
-        this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
+        this.minAngleInDegrees = 50;
+
+        this.barrelLength = 25;
+        this.thickness = 7;
+
+        this.minTimeBetweenShots = 50;//millisecs
+        this.magazineSize = 1;
+        this.ammoInMagazine = this.magazineSize;
+        this.magazineReloadTime = 200;//millisecs
+
+        this.minFiringDist = 100;
+
+        // this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
+        // this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
     }
     
     spawnBullet() {

@@ -108,7 +108,7 @@ export class ju52 extends actor2dbase {
             this.#paratrooperCountLeft--;
             this.game.level.addActor(new paratrooper(this.game, this.x, this.y));
         }
-        
+
     }
 
     draw(interp) {
@@ -131,7 +131,9 @@ export class ju52 extends actor2dbase {
             this.game.view.ctx.fillRect(this.absOffsetX, this.absOffsetY, this.width, this.height);
 
             if (this.#paratrooperCountRight > 0 &&
-                this.x > this.game.level.bunker.x) {
+                this.x > this.game.level.bunker.x &&
+                this.x >= this.#jumpRightMinPoint &&
+                this.x <= this.#jumpRightMaxPoint) {
                 this.game.view.ctx.lineWidth = 1;
                 this.game.view.ctx.strokeStyle = 'orange';
                 this.game.view.ctx.beginPath();
@@ -143,7 +145,9 @@ export class ju52 extends actor2dbase {
                 this.game.view.ctx.stroke();
             }
             else if (this.#paratrooperCountLeft > 0 &&
-                this.x < this.game.level.bunker.x) {
+                this.x < this.game.level.bunker.x &&
+                this.x >= this.#jumpLeftMinPoint &&
+                this.x <= this.#jumpLeftMaxPoint) {
                 this.game.view.ctx.lineWidth = 1;
                 this.game.view.ctx.strokeStyle = 'orange';
                 this.game.view.ctx.beginPath();
