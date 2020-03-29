@@ -35,6 +35,10 @@ export class gunbase extends actor2dbase {
 
     constructor(game) {
         super(game, 0, 0, 0);
+    }
+
+    initialize() {
+        super.initialize();
 
         this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
         this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);

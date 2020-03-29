@@ -14,7 +14,7 @@ export class ju52 extends actor2dbase {
     #paratrooperCountLeft = 0;
     #paratrooperCountRight = 0;
     #jumpPadScreen = 100;
-    #jumpPadBunker = 200;
+    #jumpPadBunker = 300;
     #jumpLeftMinPoint = 0;
     #jumpLeftMaxPoint = 0;
     #jumpRightMinPoint = 0;
@@ -23,7 +23,7 @@ export class ju52 extends actor2dbase {
     #jumpPointRight = 0;
 
     #lastJumpTime = 0;
-    #minTimeBetweenJumps = 100;
+    #minTimeBetweenJumps = 1000;
 
     #paratroopers = []
 
@@ -69,7 +69,7 @@ export class ju52 extends actor2dbase {
         super.update(delta);
 
         //TODO: This is not correct. It should cruise to drop zone, then slow down, drop everyone, then speed back up.
-        if (this.#paratrooperCountLeft < 1 ||
+        if (this.#paratrooperCountLeft < 1 &&
             this.#paratrooperCountRight < 1) {
             this.#speedCurrent = this.#speedWhileCruising;
         }
@@ -89,18 +89,26 @@ export class ju52 extends actor2dbase {
 
         //TODO: This is all really basic now. Just trying to get something going.
         let time = this.game.loop.currentTime;
-        if (this.x >= this.#jumpLeftMinPoint &&
+
+        if (this.x >= this.#jumpRightMinPoint &&
+            this.x <= this.#jumpRightMaxPoint &&
+            this.x <= this.#jumpPointRight &&
+            this.#paratrooperCountRight > 0 &&
+            time - this.#lastJumpTime >= this.#minTimeBetweenJumps) {
+            this.#lastJumpTime = time;
+            this.#paratrooperCountRight--;
+            this.game.level.addActor(new paratrooper(this.game, this.x, this.y));
+        }
+        else if (this.x >= this.#jumpLeftMinPoint &&
             this.x <= this.#jumpLeftMaxPoint &&
             this.x <= this.#jumpPointLeft &&
             this.#paratrooperCountLeft > 0 &&
             time - this.#lastJumpTime >= this.#minTimeBetweenJumps) {
-                this.#lastJumpTime = time;
-                this.#paratrooperCountLeft--;
-                let p = new paratrooper(this.game);
-                p.x = this.x;
-                p.y = this.y;
-                this.game.level.addActor(p);
+            this.#lastJumpTime = time;
+            this.#paratrooperCountLeft--;
+            this.game.level.addActor(new paratrooper(this.game, this.x, this.y));
         }
+        
     }
 
     draw(interp) {
@@ -121,6 +129,31 @@ export class ju52 extends actor2dbase {
         if (this.game.debugInfoLevel >= 2) {
             this.game.view.ctx.fillStyle = 'rgba(0, 180, 0, 0.25)';
             this.game.view.ctx.fillRect(this.absOffsetX, this.absOffsetY, this.width, this.height);
+
+            if (this.#paratrooperCountRight > 0 &&
+                this.x > this.game.level.bunker.x) {
+                this.game.view.ctx.lineWidth = 1;
+                this.game.view.ctx.strokeStyle = 'orange';
+                this.game.view.ctx.beginPath();
+                this.game.view.ctx.moveTo(this.x, this.y);
+                this.game.view.ctx.lineTo(this.x, this.y + 30);
+                this.game.view.ctx.lineTo(this.#jumpPointRight, this.y + 30);
+                this.game.view.ctx.moveTo(this.x, this.y);
+                this.game.view.ctx.closePath();
+                this.game.view.ctx.stroke();
+            }
+            else if (this.#paratrooperCountLeft > 0 &&
+                this.x < this.game.level.bunker.x) {
+                this.game.view.ctx.lineWidth = 1;
+                this.game.view.ctx.strokeStyle = 'orange';
+                this.game.view.ctx.beginPath();
+                this.game.view.ctx.moveTo(this.x, this.y);
+                this.game.view.ctx.lineTo(this.x, this.y + 30);
+                this.game.view.ctx.lineTo(this.#jumpPointLeft, this.y + 30);
+                this.game.view.ctx.moveTo(this.x, this.y);
+                this.game.view.ctx.closePath();
+                this.game.view.ctx.stroke();
+            }
         }
 
         if (this.game.debugInfoLevel >= this.game.debugInfoMaxLevel) {

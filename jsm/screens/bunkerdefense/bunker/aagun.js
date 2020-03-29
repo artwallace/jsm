@@ -4,7 +4,7 @@ import { aagunbullet } from './aagunbullet.js';
 export class aagun extends gunbase {
     //TODO: move non-generic stuff from base to here and other derived classes.
 
-    minAngleInDegrees = 20;
+    
 
     minTimeBetweenShots = 50;//millisecs
     magazineSize = 30;
@@ -22,8 +22,13 @@ export class aagun extends gunbase {
         // this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
         // this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
 
+        this.minAngleInDegrees = -2;
         this.barrel1X = 0;
         this.barrel2X = 0;
+    }
+
+    initialize() {
+        super.initialize();
     }
     
     spawnBullet() {
