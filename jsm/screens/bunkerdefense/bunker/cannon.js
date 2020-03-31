@@ -20,9 +20,6 @@ export class cannon extends gunbase {
         this.magazineReloadTime = 4000;//millisecs
 
         this.minFiringDist = 200;
-
-        // this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
-        // this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
     }
 
     spawnBullet() {

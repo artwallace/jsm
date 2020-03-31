@@ -24,7 +24,7 @@ export class gunbase extends actor2dbase {
     thickness = 5;
     portOffset = 8;
     angle = 0;
-    minAngleInDegrees = 20;//TODO: Can't support negative angles because of wraparound. fix it
+    minAngleInDegrees = 20;//TODO: Can't support negative angles because of angle wraparound. fix it
     minAngle = 0;
     maxAngle = 0;
     angleToMouse = 0;
@@ -103,11 +103,12 @@ export class gunbase extends actor2dbase {
     draw(interp) {
         super.draw(interp);
 
+        this.game.view.ctx.lineWidth = this.thickness;
+        this.game.view.ctx.strokeStyle = 'black';
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.barrelBaseX, this.barrelBaseY);
         this.game.view.ctx.lineTo(this.muzzleX, this.muzzleY);
-        this.game.view.ctx.lineWidth = this.thickness;
-        this.game.view.ctx.strokeStyle = 'black';
+        this.game.view.ctx.closePath();
         this.game.view.ctx.stroke();
     }
 

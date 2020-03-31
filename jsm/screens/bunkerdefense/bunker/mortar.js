@@ -18,9 +18,6 @@ export class mortar extends gunbase {
         this.magazineReloadTime = 200;//millisecs
 
         this.minFiringDist = 100;
-
-        // this.minAngle = (-180 + this.minAngleInDegrees) * (Math.PI / 180);
-        // this.maxAngle = (-this.minAngleInDegrees) * (Math.PI / 180);
     }
     
     spawnBullet() {

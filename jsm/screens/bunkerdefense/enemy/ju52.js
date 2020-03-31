@@ -108,7 +108,6 @@ export class ju52 extends actor2dbase {
             this.#paratrooperCountLeft--;
             this.game.level.addActor(new paratrooper(this.game, this.x, this.y));
         }
-
     }
 
     draw(interp) {
