@@ -18,7 +18,7 @@ export class paratrooper extends actor2dbase {
     #chuteDist = this.#chuteRadius * 1.5;
 
     #freefallSpeedPerSec = 150;
-    #parachureSpeedPerSec = 30;
+    #parachureSpeedPerSec = 25;
 
     #chuteDeployed = false;
     #minChuteDeployDist = 150;

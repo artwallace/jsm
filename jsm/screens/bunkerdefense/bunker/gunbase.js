@@ -80,19 +80,22 @@ export class gunbase extends actor2dbase {
 
         if (!this.isInFiringMode &&
             this.game.mouseDown &&
-            this.game.mouseDownEvent.button === 0 &&
-            this.angleToMouse >= this.minAngle &&
-            this.angleToMouse <= this.maxAngle &&
-            checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top) &&
-            getDistanceBetweenPoints(this.game.level.mouseX, this.game.level.mouseY, this.barrelBaseX, this.barrelBaseY) >= this.minFiringDist) {
-            this.isInFiringMode = true;
+            this.game.mouseDownEvent.button === 0) {
+            let aimIsValid = this.isAimWithinFiringArc();
+            if (aimIsValid) {
+                this.isInFiringMode = true;
+            }
         }
         else if (this.isInFiringMode &&
-            (this.angleToMouse < this.minAngle || this.angleToMouse > this.maxAngle) ||
-            (this.game.mouseUp && this.game.mouseUpEvent.button === 0) ||
-            !checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top) ||
-            getDistanceBetweenPoints(this.game.level.mouseX, this.game.level.mouseY, this.barrelBaseX, this.barrelBaseY) < this.minFiringDist) {
+            this.game.mouseUp &&
+            this.game.mouseUpEvent.button === 0) {
             this.isInFiringMode = false;
+        }
+        else if (this.isInFiringMode) {
+            let aimIsValid = this.isAimWithinFiringArc();
+            if (!aimIsValid) {
+                this.isInFiringMode = false;
+            }
         }
 
         if (this.isInFiringMode) {
@@ -165,6 +168,18 @@ export class gunbase extends actor2dbase {
             this.timeOfLastShot = time;
             this.ammoInMagazine -= this.ammoPerFire;
             this.spawnBullet();
+        }
+    }
+
+    isAimWithinFiringArc() {
+        if (this.angleToMouse >= this.minAngle &&
+            this.angleToMouse <= this.maxAngle &&
+            checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top) &&
+            getDistanceBetweenPoints(this.game.level.mouseX, this.game.level.mouseY, this.barrelBaseX, this.barrelBaseY) >= this.minFiringDist) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

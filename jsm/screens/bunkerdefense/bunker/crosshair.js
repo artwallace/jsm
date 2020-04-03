@@ -8,6 +8,7 @@ export class crosshair extends actor2dbase {
 
     thickness = 3;
     color = '#444444';
+    colorBadAim = 'purple';
 
     halfLength = 20;
     spaceFromCenter = 10;
@@ -21,7 +22,9 @@ export class crosshair extends actor2dbase {
     leftEnd = 0;
     rightStart = 0;
     rightEnd = 0;
-    
+
+    #aimAllowsFiring = false;
+
     constructor(game) {
         super(game, 0, 0, 0);
         this.layer = this.game.level.maxLayer - 3;
@@ -51,6 +54,13 @@ export class crosshair extends actor2dbase {
         this.right = this.rightStart;
         this.bottom = this.bottomStart;
 
+        if (this.game.level.bunkergun.isAimWithinFiringArc()) {
+            this.#aimAllowsFiring = true;
+        }
+        else {
+            this.#aimAllowsFiring = false;
+        }
+
         //This is no longer possible because we are clamping to level.
         // if (checkIfRectOverlapsRect(this.left, this.top, this.right, this.bottom, this.game.level.levelLeft, this.game.level.levelTop, this.game.level.levelRight, this.game.level.dashboard.top)) {
         //     this.isVisible = true;
@@ -62,14 +72,20 @@ export class crosshair extends actor2dbase {
 
     draw(interp) {
         super.draw(interp);
-        
+
+        this.game.view.ctx.lineWidth = this.thickness;
+        if (this.#aimAllowsFiring) {
+            this.game.view.ctx.strokeStyle = this.color;
+        }
+        else {
+            this.game.view.ctx.strokeStyle = this.colorBadAim;
+        }
+
         //top
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.x, this.topStart);
         this.game.view.ctx.lineTo(this.x, this.topEnd);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.thickness;
-        this.game.view.ctx.strokeStyle = this.color;
         this.game.view.ctx.stroke();
 
         //bottom
@@ -77,17 +93,13 @@ export class crosshair extends actor2dbase {
         this.game.view.ctx.moveTo(this.x, this.bottomStart);
         this.game.view.ctx.lineTo(this.x, this.bottomEnd);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.thickness;
-        this.game.view.ctx.strokeStyle = this.color;
         this.game.view.ctx.stroke();
-        
+
         //left
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.leftStart, this.y);
         this.game.view.ctx.lineTo(this.leftEnd, this.y);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.thickness;
-        this.game.view.ctx.strokeStyle = this.color;
         this.game.view.ctx.stroke();
 
         //right
@@ -95,16 +107,12 @@ export class crosshair extends actor2dbase {
         this.game.view.ctx.moveTo(this.rightStart, this.y);
         this.game.view.ctx.lineTo(this.rightEnd, this.y);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.thickness;
-        this.game.view.ctx.strokeStyle = this.color;
         this.game.view.ctx.stroke();
 
         //circle
         this.game.view.ctx.beginPath();
         this.game.view.ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.thickness;
-        this.game.view.ctx.strokeStyle = this.color;
         this.game.view.ctx.stroke();
     }
 }
