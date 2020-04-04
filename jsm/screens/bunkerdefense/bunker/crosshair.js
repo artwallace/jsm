@@ -6,6 +6,13 @@ export class crosshair extends actor2dbase {
     #startAngle = 0;
     #endAngle = 2 * Math.PI;
 
+    #ammoRadius = this.#radius + 5;
+    #ammoHalfCircumference = this.#ammoRadius * Math.PI;
+    #ammoStartAngle = 0;
+    #ammoEndAngle = Math.PI;
+
+    #ammoDisplay = [];
+
     #thickness = 3;
     #color = '#444444';
     #colorBadAim = '#44444444';
@@ -60,11 +67,35 @@ export class crosshair extends actor2dbase {
         else {
             this.#aimAllowsFiring = false;
         }
+
+        this.updateAmmo();
+    }
+
+    updateAmmo() {
+        this.#ammoDisplay = [];
+
+        if (this.game.level.bunkergun.ammoInMagazine < 1) {
+            return;
+        }
+
+        let maxAmmoSize = this.#ammoHalfCircumference / this.game.level.bunkergun.magazineSize;
+        let ammoSpacerSize = clamp(maxAmmoSize * .1, 1, 3);
+        let ammoSize = maxAmmoSize - ammoSpacerSize;
+        let emptyAmmoCount = this.game.level.bunkergun.magazineSize - this.game.level.bunkergun.ammoInMagazine;
+
+        for (let index = 1; index <= this.game.level.bunkergun.ammoInMagazine - 1; index++) {
+            this.#ammoDisplay.push(ammoSize, ammoSpacerSize);
+        }
+        this.#ammoDisplay.push(ammoSize, 0);
+
+        if (emptyAmmoCount > 0) {
+            this.#ammoDisplay.push(0, (ammoSize + ammoSpacerSize) * (emptyAmmoCount + 1));
+        }
     }
 
     draw(interp) {
         super.draw(interp);
-        
+
         this.game.view.ctx.lineWidth = this.#thickness;
         if (this.#aimAllowsFiring) {
             this.game.view.ctx.strokeStyle = this.#color;
@@ -90,5 +121,16 @@ export class crosshair extends actor2dbase {
         this.game.view.ctx.arc(this.x, this.y, this.#radius, this.#startAngle, this.#endAngle);
         this.game.view.ctx.closePath();
         this.game.view.ctx.stroke();
+
+        //ammo counter
+        if (this.#ammoDisplay.length > 0) {
+            this.game.view.ctx.beginPath();
+            this.game.view.ctx.arc(this.x, this.y, this.#ammoRadius, this.#ammoStartAngle, this.#ammoEndAngle);
+            this.game.view.ctx.moveTo(this.x, this.y);
+            this.game.view.ctx.closePath();
+            this.game.view.ctx.setLineDash(this.#ammoDisplay);
+            this.game.view.ctx.stroke();
+            this.game.view.ctx.setLineDash([]);
+        }
     }
 }
