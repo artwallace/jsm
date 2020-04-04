@@ -1,11 +1,8 @@
-import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { imageactor2dbase } from '../../../engine/imageactor2dbase.js';
 import { getRandomIntFromRange } from '../../../engine/utilities.js';
 import { paratrooper } from './paratrooper.js';
 
-export class ju52 extends actor2dbase {
-    imagePath = './screens/bunkerdefense/enemy/ju52-512.png';
-    loaded = false;
-
+export class ju52 extends imageactor2dbase {
     #speedCurrent = 0;
     #speedWhileJumping = -80;
     #speedWhileCruising = -150;
@@ -25,21 +22,14 @@ export class ju52 extends actor2dbase {
     #lastJumpTime = 0;
     #minTimeBetweenJumps = 1000;
 
-    #paratroopers = []
-
     constructor(game) {
         super(game, 0, 0, 0);
 
-        this.img = new Image();
-        this.img.crossOrigin = 'anonymous';
-        this.img.onload = this.onloaded.bind(this);
-        this.img.src = this.imagePath;
+        this.imagePath = './screens/bunkerdefense/enemy/ju52-512.png';
 
         this.width = 512 / 5;
         this.height = 240 / 5;
-
-        this.halfWidth = this.width / 2;
-        this.halfHeight = this.height / 2;
+        this.updateDimensions();
     }
 
     initialize() {
@@ -57,12 +47,6 @@ export class ju52 extends actor2dbase {
 
         this.#jumpPointLeft = getRandomIntFromRange(this.#jumpLeftMinPoint, this.#jumpLeftMaxPoint);
         this.#jumpPointRight = getRandomIntFromRange(this.#jumpRightMinPoint, this.#jumpRightMaxPoint);
-
-        // for (let index = 0; index < this.#paratrooperCountLeft; index++) {
-        //     //const element = array[index];
-        //     let p = new paratrooper(this.game);
-        //     let preferredJumpPoint = 0;
-        // }
     }
 
     update(delta) {
@@ -84,8 +68,7 @@ export class ju52 extends actor2dbase {
             return;
         }
 
-        this.absOffsetX = this.x - this.halfWidth;
-        this.absOffsetY = this.y - this.halfHeight;
+        this.updateDimensions();
 
         //TODO: This is all really basic now. Just trying to get something going.
         let time = this.game.loop.currentTime;
@@ -110,24 +93,12 @@ export class ju52 extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
-
-        if (this.img === undefined ||
-            this.img === null ||
-            !this.loaded) {
-            return;
-        }
-
-        this.game.view.ctx.drawImage(this.img, this.absOffsetX, this.absOffsetY, this.width, this.height);
-    }
-
     drawdebug(interp) {
         super.drawdebug(interp);
 
         if (this.game.debugInfoLevel >= 2) {
             this.game.view.ctx.fillStyle = 'rgba(0, 180, 0, 0.25)';
-            this.game.view.ctx.fillRect(this.absOffsetX, this.absOffsetY, this.width, this.height);
+            this.game.view.ctx.fillRect(this.left, this.top, this.width, this.height);
 
             if (this.#paratrooperCountRight > 0 &&
                 this.x > this.game.level.bunker.x &&
@@ -162,18 +133,9 @@ export class ju52 extends actor2dbase {
         if (this.game.debugInfoLevel >= this.game.debugInfoMaxLevel) {
             this.game.view.ctx.font = '10px Arial';
             this.game.view.ctx.fillStyle = 'red';
-            this.game.view.ctx.fillText(Math.round(this.x) + ', ' + Math.round(this.y), this.x + 5, this.y + 5);
+            this.game.view.ctx.textBaseline = 'bottom';
+            this.game.view.ctx.textAlign = 'center';
+            this.game.view.ctx.fillText(Math.round(this.x) + ', ' + Math.round(this.y), this.x, this.y + (this.height / 2));
         }
-    }
-
-    dispose() {
-        this.img = null;
-        this.loaded = false;
-        super.dispose();
-    }
-
-    onloaded() {
-        this.loaded = true;
-        this.img.onload = null;
     }
 }
