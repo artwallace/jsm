@@ -20,7 +20,8 @@ export class mortarpanel extends gunpanelbase {
             this.game.level.switchToMortar();
         }
         else if (this.game.keyboardDown &&
-            this.game.keyboardDownEvent.key === this.key &&
+            (this.game.keyboardDownEvent.key === this.key ||
+                this.game.keyboardDownEvent.key === this.keyCapitalized) &&
             !(this.game.level.bunkergun instanceof mortar)) {
             this.game.level.switchToMortar();
         }

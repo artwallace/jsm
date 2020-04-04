@@ -20,7 +20,8 @@ export class cannonpanel extends gunpanelbase {
             this.game.level.switchToCannon();
         }
         else if (this.game.keyboardDown &&
-            this.game.keyboardDownEvent.key === this.key &&
+            (this.game.keyboardDownEvent.key === this.key ||
+                this.game.keyboardDownEvent.key === this.keyCapitalized) &&
             !(this.game.level.bunkergun instanceof cannon)) {
             this.game.level.switchToCannon();
         }

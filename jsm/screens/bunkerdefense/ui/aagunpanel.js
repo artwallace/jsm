@@ -20,7 +20,8 @@ export class aagunpanel extends gunpanelbase {
             this.game.level.switchToAagun();
         }
         else if (this.game.keyboardDown &&
-            this.game.keyboardDownEvent.key === this.key &&
+            (this.game.keyboardDownEvent.key === this.key ||
+                this.game.keyboardDownEvent.key === this.keyCapitalized) &&
             !(this.game.level.bunkergun instanceof aagun)) {
             this.game.level.switchToAagun();
         }

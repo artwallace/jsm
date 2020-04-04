@@ -78,18 +78,20 @@ export class crosshair extends actor2dbase {
             return;
         }
 
-        let maxAmmoSize = this.#ammoHalfCircumference / this.game.level.bunkergun.magazineSize;
-        let ammoSpacerSize = clamp(maxAmmoSize * .1, 1, 3);
-        let ammoSize = maxAmmoSize - ammoSpacerSize;
+        let maxAmmoLength = this.#ammoHalfCircumference / this.game.level.bunkergun.magazineSize;
+        let spacerLength = clamp(maxAmmoLength * .1, 1, 3);
+        let spacerTotalLength = spacerLength * (this.game.level.bunkergun.magazineSize - 1);
+        let ammoTotalLength = this.#ammoHalfCircumference - spacerTotalLength;
+        let ammoLength = ammoTotalLength / this.game.level.bunkergun.magazineSize;
         let emptyAmmoCount = this.game.level.bunkergun.magazineSize - this.game.level.bunkergun.ammoInMagazine;
 
         for (let index = 1; index <= this.game.level.bunkergun.ammoInMagazine - 1; index++) {
-            this.#ammoDisplay.push(ammoSize, ammoSpacerSize);
+            this.#ammoDisplay.push(ammoLength, spacerLength);
         }
-        this.#ammoDisplay.push(ammoSize, 0);
+        this.#ammoDisplay.push(ammoLength, 0);
 
         if (emptyAmmoCount > 0) {
-            this.#ammoDisplay.push(0, (ammoSize + ammoSpacerSize) * (emptyAmmoCount + 1));
+            this.#ammoDisplay.push(0, (ammoLength + spacerLength) * (emptyAmmoCount + 1));
         }
     }
 
