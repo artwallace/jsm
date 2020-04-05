@@ -38,7 +38,7 @@ export class aagun extends gunbase {
 
         this.minAngleInDegrees = 0;
         this.minTimeBetweenShots = 50;//millisecs
-        this.magazineSize = 30;
+        this.magazineSize = 80;
         this.ammoInMagazine = this.magazineSize;
         this.magazineReloadTime = 1500;//millisecs
 

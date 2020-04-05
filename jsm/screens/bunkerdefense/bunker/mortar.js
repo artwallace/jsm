@@ -13,7 +13,7 @@ export class mortar extends gunbase {
         this.thickness = 7;
 
         this.minTimeBetweenShots = 500;//millisecs
-        this.magazineSize = 2;
+        this.magazineSize = 3;
         this.ammoInMagazine = this.magazineSize;
         this.magazineReloadTime = 1000;//millisecs
 

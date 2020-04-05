@@ -79,7 +79,7 @@ export class crosshair extends actor2dbase {
         }
 
         let maxAmmoLength = this.#ammoHalfCircumference / this.game.level.bunkergun.magazineSize;
-        let spacerLength = clamp(maxAmmoLength * .1, 1, 3);
+        let spacerLength = clamp(maxAmmoLength * .1, 0, 3);
         let spacerTotalLength = spacerLength * (this.game.level.bunkergun.magazineSize - 1);
         let ammoTotalLength = this.#ammoHalfCircumference - spacerTotalLength;
         let ammoLength = ammoTotalLength / this.game.level.bunkergun.magazineSize;
