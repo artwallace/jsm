@@ -7,7 +7,7 @@ export class mortar extends gunbase {
     constructor(game) {
         super(game, 0, 0, 0);
 
-        this.minAngleInDegrees = 50;
+        this.minAngleInDegrees = 0;
 
         this.barrelLength = 25;
         this.thickness = 7;

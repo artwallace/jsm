@@ -9,7 +9,7 @@ export class cannon extends gunbase {
 
         this.barrelLength = 50;
 
-        this.minAngleInDegrees = 30;
+        this.minAngleInDegrees = 0;
 
         this.thickness = 10;
         this.portOffset = 14;

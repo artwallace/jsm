@@ -33,7 +33,7 @@ export class gunpanelbase extends actor2dbase {
     #upgradePadOuterSide = 4;
     #upgradePadInnerSide = 2;
     #upgradePadTop = 26;
-    #upgradeTextLeftPad = 4;
+    #upgradeLabelPadSide = 4;
     #upgradeWidth = (this.width / 2) - this.#upgradePadOuterSide - this.#upgradePadInnerSide;
     #upgradeHeight = (this.height - this.#upgradePadTop - this.#upgradePadOuterSide - this.#upgradePadInnerSide - this.#upgradePadInnerSide) / 2;
 
@@ -60,18 +60,22 @@ export class gunpanelbase extends actor2dbase {
     upgradeL1Label = '';
     upgradeL1Level = 0;
     upgradeL1MaxLevel = 0;
+    upgradeL1Cost = 0;
 
     upgradeL2Label = '';
     upgradeL2Level = 0;
     upgradeL2MaxLevel = 0;
+    upgradeL2Cost = 0;
 
     upgradeR1Label = '';
     upgradeR1Level = 0;
     upgradeR1MaxLevel = 0;
+    upgradeR1Cost = 0;
 
     upgradeR2Label = '';
     upgradeR2Level = 0;
     upgradeR2MaxLevel = 0;
+    upgradeR2Cost = 0;
 
     constructor(game, position) {
         super(game, 0, 0, 0);
@@ -171,13 +175,41 @@ export class gunpanelbase extends actor2dbase {
         this.game.view.ctx.textBaseline = 'top';
         this.game.view.ctx.fillText(this.key + ' key', this.right - 5, this.top + 5);
 
-        this.drawUpgrade(this.upgradeL1Label, this.isUpgradeL1Hilighted, this.#upgradeL1Left, this.#upgradeL1Top);
-        this.drawUpgrade(this.upgradeL2Label, this.isUpgradeL2Hilighted, this.#upgradeL2Left, this.#upgradeL2Top);
-        this.drawUpgrade(this.upgradeR1Label, this.isUpgradeR1Hilighted, this.#upgradeR1Left, this.#upgradeR1Top);
-        this.drawUpgrade(this.upgradeR2Label, this.isUpgradeR2Hilighted, this.#upgradeR2Left, this.#upgradeR2Top);
+        this.drawUpgrade(
+            this.upgradeL1Label,
+            this.upgradeL1Cost,
+            this.upgradeL1Level,
+            this.upgradeL1MaxLevel,
+            this.isUpgradeL1Hilighted,
+            this.#upgradeL1Left,
+            this.#upgradeL1Top);
+        this.drawUpgrade(
+            this.upgradeL2Label,
+            this.upgradeL2Cost,
+            this.upgradeL2Level,
+            this.upgradeL2MaxLevel,
+            this.isUpgradeL2Hilighted,
+            this.#upgradeL2Left,
+            this.#upgradeL2Top);
+        this.drawUpgrade(
+            this.upgradeR1Label,
+            this.upgradeR1Cost,
+            this.upgradeR1Level,
+            this.upgradeR1MaxLevel,
+            this.isUpgradeR1Hilighted,
+            this.#upgradeR1Left,
+            this.#upgradeR1Top);
+        this.drawUpgrade(
+            this.upgradeR2Label,
+            this.upgradeR2Cost,
+            this.upgradeR2Level,
+            this.upgradeR2MaxLevel,
+            this.isUpgradeR2Hilighted,
+            this.#upgradeR2Left,
+            this.#upgradeR2Top);
     }
 
-    drawUpgrade(label, isHilighted, left, top) {
+    drawUpgrade(label, cost, level, maxLevel, isHilighted, left, top) {
         if (isHilighted) {
             this.game.view.ctx.fillStyle = this.#upgradeColorHover;
         }
@@ -186,11 +218,19 @@ export class gunpanelbase extends actor2dbase {
         }
         this.game.view.ctx.fillRect(left, top, this.#upgradeWidth, this.#upgradeHeight);
 
-        this.game.view.ctx.font = '14px Odibee Sans';
+        this.game.view.ctx.font = '16px Odibee Sans';
         this.game.view.ctx.fillStyle = '#111111';
         this.game.view.ctx.textAlign = 'left';
         this.game.view.ctx.textBaseline = 'middle';
-        this.game.view.ctx.fillText(label, left + this.#upgradeTextLeftPad, top + (this.#upgradeHeight / 2));
+        this.game.view.ctx.fillText(label, left + this.#upgradeLabelPadSide, top + (this.#upgradeHeight / 2));
+        if (level >= maxLevel) {
+            this.game.view.ctx.textAlign = 'right';
+            this.game.view.ctx.fillText('max', left + this.#upgradeWidth - this.#upgradeLabelPadSide, top + (this.#upgradeHeight / 2));
+        }
+        else {
+            this.game.view.ctx.textAlign = 'right';
+            this.game.view.ctx.fillText('+' + cost + 'c', left + this.#upgradeWidth - this.#upgradeLabelPadSide, top + (this.#upgradeHeight / 2));
+        }
     }
 
     calcPosition() {
