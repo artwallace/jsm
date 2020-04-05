@@ -12,7 +12,7 @@ export class gunpanelbase extends actor2dbase {
 
     color = '#707070';
     hoverColor = '#696969';
-    width = 160;
+    width = 250;
     height = 80;
     #horizontalPadding = 10;
 
@@ -24,12 +24,16 @@ export class gunpanelbase extends actor2dbase {
     isUpgradeR1Hilighted = false;
     isUpgradeR2Hilighted = false;
 
+    #upgradeColor = '#606060';
+    #upgradeColorHover = '#595959';
+
     key = '';
     keyCapitalized = '';
 
     #upgradePadOuterSide = 4;
     #upgradePadInnerSide = 2;
     #upgradePadTop = 26;
+    #upgradeTextLeftPad = 4;
     #upgradeWidth = (this.width / 2) - this.#upgradePadOuterSide - this.#upgradePadInnerSide;
     #upgradeHeight = (this.height - this.#upgradePadTop - this.#upgradePadOuterSide - this.#upgradePadInnerSide - this.#upgradePadInnerSide) / 2;
 
@@ -52,6 +56,22 @@ export class gunpanelbase extends actor2dbase {
     #upgradeR2Top = 0;
     #upgradeR2Right = 0;
     #upgradeR2Bottom = 0;
+
+    upgradeL1Label = '';
+    upgradeL1Level = 0;
+    upgradeL1MaxLevel = 0;
+
+    upgradeL2Label = '';
+    upgradeL2Level = 0;
+    upgradeL2MaxLevel = 0;
+
+    upgradeR1Label = '';
+    upgradeR1Level = 0;
+    upgradeR1MaxLevel = 0;
+
+    upgradeR2Label = '';
+    upgradeR2Level = 0;
+    upgradeR2MaxLevel = 0;
 
     constructor(game, position) {
         super(game, 0, 0, 0);
@@ -151,59 +171,26 @@ export class gunpanelbase extends actor2dbase {
         this.game.view.ctx.textBaseline = 'top';
         this.game.view.ctx.fillText(this.key + ' key', this.right - 5, this.top + 5);
 
-        this.drawUpgradeL1();
-        this.drawUpgradeL2();
-        this.drawUpgradeR1();
-        this.drawUpgradeR2();
-        // if (this.isHilighted) {
-        //     this.game.view.ctx.fillStyle = 'red';
-        // }
-        // else {
-        //     this.game.view.ctx.fillStyle = 'blue';
-        // }
-        // this.game.view.ctx.fillRect(this.#upgradeL2Left, this.#upgradeL2Top, this.#upgradeWidth, this.#upgradeHeight);
-        // this.game.view.ctx.fillRect(this.#upgradeR1Left, this.#upgradeR1Top, this.#upgradeWidth, this.#upgradeHeight);
-        // this.game.view.ctx.fillRect(this.#upgradeR2Left, this.#upgradeR2Top, this.#upgradeWidth, this.#upgradeHeight);
+        this.drawUpgrade(this.upgradeL1Label, this.isUpgradeL1Hilighted, this.#upgradeL1Left, this.#upgradeL1Top);
+        this.drawUpgrade(this.upgradeL2Label, this.isUpgradeL2Hilighted, this.#upgradeL2Left, this.#upgradeL2Top);
+        this.drawUpgrade(this.upgradeR1Label, this.isUpgradeR1Hilighted, this.#upgradeR1Left, this.#upgradeR1Top);
+        this.drawUpgrade(this.upgradeR2Label, this.isUpgradeR2Hilighted, this.#upgradeR2Left, this.#upgradeR2Top);
     }
 
-    drawUpgradeL1() {
-        if (this.isUpgradeL1Hilighted) {
-            this.game.view.ctx.fillStyle = 'red';
+    drawUpgrade(label, isHilighted, left, top) {
+        if (isHilighted) {
+            this.game.view.ctx.fillStyle = this.#upgradeColorHover;
         }
         else {
-            this.game.view.ctx.fillStyle = 'blue';
+            this.game.view.ctx.fillStyle = this.#upgradeColor;
         }
-        this.game.view.ctx.fillRect(this.#upgradeL1Left, this.#upgradeL1Top, this.#upgradeWidth, this.#upgradeHeight);
-    }
+        this.game.view.ctx.fillRect(left, top, this.#upgradeWidth, this.#upgradeHeight);
 
-    drawUpgradeL2() {
-        if (this.isUpgradeL2Hilighted) {
-            this.game.view.ctx.fillStyle = 'red';
-        }
-        else {
-            this.game.view.ctx.fillStyle = 'blue';
-        }
-        this.game.view.ctx.fillRect(this.#upgradeL2Left, this.#upgradeL2Top, this.#upgradeWidth, this.#upgradeHeight);
-    }
-
-    drawUpgradeR1() {
-        if (this.isUpgradeR1Hilighted) {
-            this.game.view.ctx.fillStyle = 'red';
-        }
-        else {
-            this.game.view.ctx.fillStyle = 'blue';
-        }
-        this.game.view.ctx.fillRect(this.#upgradeR1Left, this.#upgradeR1Top, this.#upgradeWidth, this.#upgradeHeight);
-    }
-
-    drawUpgradeR2() {
-        if (this.isUpgradeR2Hilighted) {
-            this.game.view.ctx.fillStyle = 'red';
-        }
-        else {
-            this.game.view.ctx.fillStyle = 'blue';
-        }
-        this.game.view.ctx.fillRect(this.#upgradeR2Left, this.#upgradeR2Top, this.#upgradeWidth, this.#upgradeHeight);
+        this.game.view.ctx.font = '14px Odibee Sans';
+        this.game.view.ctx.fillStyle = '#111111';
+        this.game.view.ctx.textAlign = 'left';
+        this.game.view.ctx.textBaseline = 'middle';
+        this.game.view.ctx.fillText(label, left + this.#upgradeTextLeftPad, top + (this.#upgradeHeight / 2));
     }
 
     calcPosition() {

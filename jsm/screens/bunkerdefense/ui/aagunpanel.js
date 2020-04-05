@@ -8,6 +8,22 @@ export class aagunpanel extends gunpanelbase {
 
     constructor(game) {
         super(game, panelPosition.MIDDLE);
+
+        this.upgradeL1Label = 'Guns';
+        this.upgradeL1Level = 1;
+        this.upgradeL1MaxLevel = 4;
+
+        this.upgradeL2Label = 'Reload';
+        this.upgradeL2Level = 1;
+        this.upgradeL2MaxLevel = 3;
+
+        this.upgradeR1Label = 'Ammo';
+        this.upgradeR1Level = 1;
+        this.upgradeR1MaxLevel = 4;
+
+        this.upgradeR2Label = 'Damage';
+        this.upgradeR2Level = 1;
+        this.upgradeR2MaxLevel = 5;
     }
 
     update(delta) {
