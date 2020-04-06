@@ -13,6 +13,6 @@ export class settings extends gamebase {
     }
 
     static factory(shell) {
-        return new settings(shell, 60);
+        return new settings(shell, 30);
     }
 }

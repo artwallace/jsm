@@ -55,7 +55,7 @@ export class shell extends shellbase {
     // }
 
     startSplashScreen() {
-        this.game = new splash(this, 30);
+        this.game = new splash(this, 15);
         this.game.preinitialize();
         this.game.initialize();
         this.game.postinitialize();

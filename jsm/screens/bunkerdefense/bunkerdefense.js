@@ -17,6 +17,6 @@ export class bunkerdefense extends gamebase {
     }
 
     static factory(shell) {
-        return new bunkerdefense(shell, 120);
+        return new bunkerdefense(shell, 60);
     }
 }

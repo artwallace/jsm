@@ -16,6 +16,6 @@ export class mainmenu extends gamebase {
 
     static factory(shell) {
         //TODO: maxFps has to be 2x. Investigate loop bug. This will be 30fps max.
-        return new mainmenu(shell, 60);
+        return new mainmenu(shell, 20);
     }
 }
