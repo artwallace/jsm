@@ -1,4 +1,3 @@
-//import { loop } from './loop.js';
 import { loop } from './loop2.js';
 import { shellbase } from './shellbase.js';
 
