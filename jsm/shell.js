@@ -47,7 +47,7 @@ export class shell extends shellbase {
     }
 
     // startMainMenu() {
-    //     this.game = new mainmenu(this, 60);
+    //     this.game = new mainmenu(this);
     //     this.game.preinitialize();
     //     this.game.initialize();
     //     this.game.postinitialize();
@@ -55,7 +55,7 @@ export class shell extends shellbase {
     // }
 
     startSplashScreen() {
-        this.game = new splash(this, 15);
+        this.game = new splash(this);
         this.game.preinitialize();
         this.game.initialize();
         this.game.postinitialize();

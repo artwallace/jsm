@@ -7,8 +7,8 @@ export class splash extends gamebase {
     #starttime = 0;
     #minimumTimeToDisplay = 500;
 
-    constructor(shell, maxFps) {
-        super(shell, maxFps);
+    constructor(shell) {
+        super(shell);
 
         this.debugInfoLevel = this.debugInfoMaxLevel;
 

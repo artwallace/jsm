@@ -4,14 +4,14 @@ import { gamebase } from '../../engine/gamebase.js';
 import { background } from './background.js';
 
 export class sidescroller extends gamebase {
-    constructor(shell, maxFps) {
+    constructor(shell) {
         super(shell);
 
-        this.world = new world2dzoomedheight(maxFps, this, 5000, 700, 1600);
+        this.world = new world2dzoomedheight(this, 5000, 700, 1600);
     }
 
     static factory(shell) {
-        return new sidescroller(shell, 120);
+        return new sidescroller(shell);
     }
 
     initialize() {

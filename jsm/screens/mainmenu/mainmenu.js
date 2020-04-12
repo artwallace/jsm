@@ -5,8 +5,8 @@ import { level } from './level.js';
 export class mainmenu extends gamebase {
     launchfunc = null;
 
-    constructor(shell, maxFps) {
-        super(shell, maxFps);
+    constructor(shell) {
+        super(shell);
 
         this.debugInfoLevel = 1;
 
@@ -15,7 +15,6 @@ export class mainmenu extends gamebase {
     }
 
     static factory(shell) {
-        //TODO: maxFps has to be 2x. Investigate loop bug. This will be 30fps max.
-        return new mainmenu(shell, 20);
+        return new mainmenu(shell);
     }
 }

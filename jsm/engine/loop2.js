@@ -4,38 +4,24 @@ export class loop {
     #game = null;
     #stop = false;
 
-    #maxFps = 0;
-    #minimumTimeBetweenFrames = 0;
-
-    #previousFrameHiresTimestamp = 0;
-    #currentFrameHiresTimestamp = 0;
+    #previousFrameTimestampHires = 0;
+    #currentFrameTimestampHires = 0;
     #timeSinceLastFrame = 0;
 
-    #previouFrameTimestampInSecs = 0;
+    #previousFrameTimestampInSecs = 0;
     #currentFrameTimestampInSecs = 0;
 
     #framesThisSec = 0;
     #maxFpsStatEntriesToTrack = 120;
     #fpsStats = [];
+    #fpsFirstFrameComplete = false;
 
-    constructor(maxFps, game) {
+    constructor(game) {
         if (game === undefined ||
             game === null ||
             game instanceof gamebase !== true) {
             throw ('Invalid game');
         }
-
-        if (maxFps === undefined ||
-            maxFps === null ||
-            Number.isNaN(maxFps) ||
-            maxFps < 1 ||
-            maxFps > 480 ||
-            maxFps !== Math.round(maxFps)) {
-            throw ('Invalid maxFps');
-        }
-
-        this.#maxFps = maxFps;
-        this.#minimumTimeBetweenFrames = 1000 / maxFps;
 
         this.#game = game;
     }
@@ -50,7 +36,9 @@ export class loop {
 
     start() {
         this.#stop = false;
-        this.setFrameTimes(window.performance.now(), true);
+        this.setInitialFrameTimes();
+        this.updateFrameTimes(this.#previousFrameTimestampHires);
+        this.trackFps();
         this.requestAnimationFrame();
     }
 
@@ -87,20 +75,20 @@ export class loop {
     }
 
     animateFrameCallback(timestamp) {
-        this.setFrameTimes(timestamp);
-
         if (this.#stop) {
             return;
         }
 
+        this.updateFrameTimes(timestamp);
+
         // If not enough time has passed, skip all of this.
-        if (this.#timeSinceLastFrame >= this.#minimumTimeBetweenFrames) {
-            this.trackFps();
-            this.beginFrame();
-            this.update(this.#timeSinceLastFrame);
-            this.draw(0);//TODO: remove interp?
-            this.endFrame();
-        }
+        //if (this.#timeSinceLastFrame >= this.#minimumTimeBetweenFrames) {
+        this.trackFps();
+        this.beginFrame();
+        this.update(this.#timeSinceLastFrame);
+        this.draw(0);//TODO: remove interp?
+        this.endFrame();
+        //}
 
         this.requestAnimationFrame();
     }
@@ -109,24 +97,51 @@ export class loop {
         requestAnimationFrame(this.animateFrameCallback.bind(this));
     }
 
-    setFrameTimes(timestamp, firstFrame = false) {
-        let currentTimeInSecs = Date.now() / 1000 | 0;
-        if (!firstFrame) {
-            this.#previousFrameHiresTimestamp = this.#currentFrameHiresTimestamp;
-            this.#previouFrameTimestampInSecs = this.#currentFrameTimestampInSecs;
-        }
-        else {
-            this.#previousFrameHiresTimestamp = timestamp;
-            this.#previouFrameTimestampInSecs = currentTimeInSecs;
+    setInitialFrameTimes() {
+        let initial = window.performance.now();
+        let initialInSecs = Math.floor(initial / 1000);
+
+        this.#previousFrameTimestampHires = initial;
+        this.#previousFrameTimestampInSecs = initialInSecs;
+
+        this.#currentFrameTimestampHires = initial;
+        this.#currentFrameTimestampInSecs = initialInSecs;
+
+        this.#timeSinceLastFrame = 0;
+    }
+
+    updateFrameTimes(timestamp) {
+        if (timestamp === undefined ||
+            timestamp === null ||
+            Number.isNaN(timestamp) ||
+            timestamp < 0) {
+            throw ('Invalid timestamp');
         }
 
-        let elapsed = timestamp - this.#previousFrameHiresTimestamp;
-
-        if (elapsed >= this.#minimumTimeBetweenFrames) {
-            this.#timeSinceLastFrame = elapsed;
-            this.#currentFrameHiresTimestamp = timestamp;
-            this.#currentFrameTimestampInSecs = currentTimeInSecs;
+        if (this.#previousFrameTimestampHires === undefined ||
+            this.#previousFrameTimestampHires === null ||
+            Number.isNaN(this.#previousFrameTimestampHires) ||
+            this.#previousFrameTimestampHires < 0) {
+            throw ('Invalid previous frame timestamp');
         }
+
+        // if (this.#minimumTimeBetweenFrames === undefined ||
+        //     this.#minimumTimeBetweenFrames === null ||
+        //     Number.isNaN(this.#minimumTimeBetweenFrames) ||
+        //     this.#minimumTimeBetweenFrames < 0 ||
+        //     this.#minimumTimeBetweenFrames > 1000) {
+        //     throw ('Invalid minimum frame timestamp');
+        // }
+
+        this.#timeSinceLastFrame = timestamp - this.#previousFrameTimestampHires;
+
+        //if (this.#timeSinceLastFrame >= this.#minimumTimeBetweenFrames) {
+        this.#previousFrameTimestampHires = this.#currentFrameTimestampHires;
+        this.#previousFrameTimestampInSecs = this.#currentFrameTimestampInSecs;
+
+        this.#currentFrameTimestampHires = timestamp;
+        this.#currentFrameTimestampInSecs = Math.floor(timestamp / 1000);
+        //}
     }
 
     trackFps() {
@@ -135,18 +150,17 @@ export class loop {
             throw ('Invalid FPS stats.');
         }
 
-        let newFrame = false;
-        if (this.#currentFrameTimestampInSecs !== this.#previouFrameTimestampInSecs) {
-            newFrame = true;
-        }
+        this.#framesThisSec++;
 
-        if (!newFrame) {
-            this.#framesThisSec++;
-        }
-        else {
-            this.#fpsStats.push(this.#framesThisSec);
-            if (this.#fpsStats.length > this.#maxFpsStatEntriesToTrack) {
-                this.#fpsStats.shift();
+        if (this.#currentFrameTimestampInSecs > this.#previousFrameTimestampInSecs) {
+            if (this.#fpsFirstFrameComplete) {
+                this.#fpsStats.push(this.#framesThisSec);
+                if (this.#fpsStats.length > this.#maxFpsStatEntriesToTrack) {
+                    this.#fpsStats.shift();
+                }
+            }
+            else {
+                this.#fpsFirstFrameComplete = true;
             }
             this.#framesThisSec = 0;
         }
@@ -157,11 +171,15 @@ export class loop {
     }
 
     get currentTime() {
-        return this.#currentFrameHiresTimestamp;
+        return this.#currentFrameTimestampHires;
+    }
+
+    get currentTimeInSeconds() {
+        return this.#currentFrameTimestampInSecs;
     }
 
     get lastFrameTime() {
-        return this.#previousFrameHiresTimestamp;
+        return this.#previousFrameTimestampHires;
     }
 
     get fps() {
@@ -192,9 +210,5 @@ export class loop {
             total += this.#fpsStats[i];
         }
         return total / this.#fpsStats.length;
-    }
-
-    get maxFps() {
-        return this.#maxFps;
     }
 }

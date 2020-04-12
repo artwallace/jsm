@@ -3,8 +3,8 @@ import { view2dscaledtofit } from '../../engine/view2dscaledtofit.js';
 import { level1 } from './level1.js';
 
 export class bunkerdefense extends gamebase {
-    constructor(shell, maxFps) {
-        super(shell, maxFps);
+    constructor(shell) {
+        super(shell);
 
         this.debugInfoLevel = this.debugInfoMaxLevel;
 
@@ -17,6 +17,6 @@ export class bunkerdefense extends gamebase {
     }
 
     static factory(shell) {
-        return new bunkerdefense(shell, 60);
+        return new bunkerdefense(shell);
     }
 }

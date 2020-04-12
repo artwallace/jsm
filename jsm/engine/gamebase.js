@@ -62,24 +62,15 @@ export class gamebase {
     #keyboardUpInternal = false;
     #keyboardUpInternalEvent = null;
 
-    constructor(shell, maxFps) {
+    constructor(shell) {
         if (shell === undefined ||
             shell === null ||
             shell instanceof shellbase !== true) {
             throw ('Invalid shell');
         }
 
-        if (maxFps === undefined ||
-            maxFps === null ||
-            Number.isNaN(maxFps) ||
-            maxFps < 1 ||
-            maxFps > 480 ||
-            maxFps !== Math.round(maxFps)) {
-            throw ('Invalid maxFps');
-        }
-
         this.shell = shell;
-        this.loop = new loop(maxFps, this);
+        this.loop = new loop(this);
     }
 
     preinitialize() {
@@ -527,7 +518,7 @@ export class gamebase {
 
         if (this.#debugInfoLevel >= 1) {
             this.debuginfoAddLine('Press i key to toggle debug mode, level: ' + this.#debugInfoLevel + ' of ' + this.#debugInfoMaxLevel);
-            this.debuginfoAddLine('fps: ' + Math.round(this.loop.fps) + ', avg: ' + Math.round(this.loop.fpsAvg) + ', max: ' + Math.round(this.loop.maxFps));
+            this.debuginfoAddLine('fps: ' + Math.round(this.loop.fps) + ', avg: ' + Math.round(this.loop.fpsAvg));
         }
 
         if (this.#debugInfoLevel >= 2) {

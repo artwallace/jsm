@@ -3,8 +3,8 @@ import { view2dscrollable } from '../../engine/view2dscrollable.js';
 import { level } from './level.js';
 
 export class scrolltest extends gamebase {
-    constructor(shell, maxFps) {
-        super(shell, maxFps);
+    constructor(shell) {
+        super(shell);
 
         this.debugInfoLevel = this.debugInfoMaxLevel;
 
@@ -13,6 +13,6 @@ export class scrolltest extends gamebase {
     }
 
     static factory(shell) {
-        return new scrolltest(shell, 120);
+        return new scrolltest(shell);
     }
 }

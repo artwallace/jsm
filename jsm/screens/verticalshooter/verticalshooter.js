@@ -5,14 +5,14 @@ import { background } from './background.js';
 import { ship } from './ship.js';
 
 export class verticalshooter extends gamebase {
-    constructor(shell, maxFps) {
+    constructor(shell) {
         super(shell);
 
-        this.world = new world2dzoomedwidth(maxFps, this, 1000, 5000, 1400);
+        this.world = new world2dzoomedwidth(this, 1000, 5000, 1400);
     }
 
     static factory(shell) {
-        return new verticalshooter(shell, 120);
+        return new verticalshooter(shell);
     }
 
     initialize() {

@@ -3,8 +3,8 @@ import { view2dunscaledclipped } from '../../engine/view2dunscaledclipped.js';
 import { level } from './level.js';
 
 export class settings extends gamebase {
-    constructor(shell, maxFps) {
-        super(shell, maxFps);
+    constructor(shell) {
+        super(shell);
 
         this.debugInfoLevel = this.debugInfoMaxLevel;
 
@@ -13,6 +13,6 @@ export class settings extends gamebase {
     }
 
     static factory(shell) {
-        return new settings(shell, 30);
+        return new settings(shell);
     }
 }
