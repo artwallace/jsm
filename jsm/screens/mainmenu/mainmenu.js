@@ -8,7 +8,7 @@ export class mainmenu extends gamebase {
     constructor(shell) {
         super(shell);
 
-        this.debugInfoLevel = 1;
+        this.debugInfoLevel = this.debugInfoDefaultLevel;
 
         this.view = new view2dunscaledclipped(this);
         this.level = new level(this);

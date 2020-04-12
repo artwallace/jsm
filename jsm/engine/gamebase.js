@@ -12,6 +12,7 @@ export class gamebase {
 
     #debugInfoMinLevel = 0;
     #debugInfoMaxLevel = 3;
+    #debugInfoDefaultLevel = 1;
     #debugInfoLevel = 0;
     #debugInfoLinestartX = 10;
     #debugInfoLinestartY = 20;
@@ -486,6 +487,10 @@ export class gamebase {
 
     get debugInfoMaxLevel() {
         return this.#debugInfoMaxLevel;
+    }
+
+    get debugInfoDefaultLevel() {
+        return this.#debugInfoDefaultLevel;
     }
 
     get debugInfoLevel() {

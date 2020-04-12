@@ -6,7 +6,7 @@ export class settings extends gamebase {
     constructor(shell) {
         super(shell);
 
-        this.debugInfoLevel = this.debugInfoMaxLevel;
+        this.debugInfoLevel = this.debugInfoDefaultLevel;
 
         this.view = new view2dunscaledclipped(this);
         this.level = new level(this);
