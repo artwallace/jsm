@@ -21,7 +21,7 @@ export class title extends actor2dbase {
     draw(interp) {
         super.draw(interp);
 
-        this.game.view.ctx.font = '48px Creepster';
+        this.game.view.ctx.font = '48px Orbitron';
         this.game.view.ctx.fillStyle = 'green';
         this.game.view.ctx.textAlign = 'center';
         this.game.view.ctx.textBaseline = 'middle';
