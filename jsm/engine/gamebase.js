@@ -149,7 +149,7 @@ export class gamebase {
         this.resetEvents();
     }
 
-    predraw(interp) {
+    predraw() {
         //loop calls this method. do not call it from anywhere else.
         if (!this.view.isInitialized) {
             throw 'Attempt to draw a view that is not initialized.';
@@ -158,23 +158,23 @@ export class gamebase {
             throw 'Attempt to draw a level that is not initialized.';
         }
     }
-    draw(interp) {
+    draw() {
         //loop calls this method. do not call it from anywhere else.
-        this.view.draw(interp);
-        this.level.draw(interp);
+        this.view.draw();
+        this.level.draw();
         this.view.drawLevelClipping();
 
         if (this.#debugInfoLevel > this.#debugInfoMinLevel) {
             this.view.setTransformToLevel();
-            //this.drawBackgroundDebug(interp)
-            this.level.drawDebugActors(interp);
+            //this.drawBackgroundDebug()
+            this.level.drawDebugActors();
             
             this.view.setTransformToView();
             this.drawDebugMouse();
-            this.drawDebugInfo(interp);
+            this.drawDebugInfo();
         }
     }
-    postdraw(interp) {
+    postdraw() {
         //loop calls this method. do not call it from anywhere else.
     }
 
@@ -553,7 +553,7 @@ export class gamebase {
         this.view.ctx.fillText(text, this.#debugInfoLinestartX + (lineNum * this.#debugInfoLinestepX), this.#debugInfoLinestartY + (lineNum * this.#debugInfoLinestepY));
     }
 
-    drawBackgroundDebug(interp) {
+    drawBackgroundDebug() {
         if (this.#debugInfoLevel < 2) {
             return;
         }

@@ -68,8 +68,8 @@ export class mortarshell2 extends actor2dbase {
         // }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);
@@ -81,8 +81,8 @@ export class mortarshell2 extends actor2dbase {
         //this.game.view.ctx.stroke();
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         if (this.game.debugInfoLevel >= this.game.debugInfoMaxLevel) {
             this.game.view.ctx.font = '10px Arial';

@@ -86,13 +86,7 @@ export class view2dbase extends gameitembase {
         this.updateViewSize();
     }
 
-    draw(interp) {
-        if (interp === undefined ||
-            interp === null ||
-            Number.isNaN(interp)) {
-            throw ('Invalid interp.');
-        }
-
+    draw() {
         if (this.ctx === undefined ||
             this.ctx === null) {
             throw ('Draw encountered nulls.');

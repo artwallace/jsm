@@ -27,8 +27,8 @@ export class bunker extends actor2dbase {
         //this.calcPosition();
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
         
         this.game.view.ctx.beginPath();
         this.game.view.ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);

@@ -25,8 +25,8 @@ export class pyramidaltree extends treebase {
         this.leafWidth = getRandomIntFromRange(15, 25);
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.x, this.y);

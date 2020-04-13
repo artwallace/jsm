@@ -30,8 +30,8 @@ export class background extends actor2dbase {
         this.gridRows = this.game.level.levelHeight / this.gridSize;
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         for (var col = 0; col < this.gridColumns; col++) {
             for (var row = 0; row < this.gridRows; row++) {

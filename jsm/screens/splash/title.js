@@ -56,8 +56,8 @@ export class title extends actor2dbase {
         this.y = this.game.level.levelCenterY;
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.font = this.#font;
         this.game.view.ctx.fillStyle = 'green';

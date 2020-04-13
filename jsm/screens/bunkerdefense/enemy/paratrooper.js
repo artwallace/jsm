@@ -92,8 +92,8 @@ export class paratrooper extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         if (this.#chuteDeployed) {
             this.game.view.ctx.lineWidth = 1;
@@ -122,7 +122,7 @@ export class paratrooper extends actor2dbase {
         }
     }
 
-    drawdebug(interp) {
+    drawdebug() {
         if (this.game.debugInfoLevel >= 2) {
             this.game.view.ctx.fillStyle = 'rgba(0, 180, 0, 0.25)';
             this.game.view.ctx.fillRect(this.left, this.top, this.width, this.height);

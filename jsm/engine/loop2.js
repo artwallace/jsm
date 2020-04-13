@@ -66,11 +66,11 @@ export class loop {
         }
     }
 
-    draw(interp) {
+    draw() {
         if (!this.#game.stopRequested) {
-            this.#game.predraw(interp);
-            this.#game.draw(interp);
-            this.#game.postdraw(interp);
+            this.#game.predraw();
+            this.#game.draw();
+            this.#game.postdraw();
         }
     }
 
@@ -81,14 +81,11 @@ export class loop {
 
         this.updateFrameTimes(timestamp);
 
-        // If not enough time has passed, skip all of this.
-        //if (this.#timeSinceLastFrame >= this.#minimumTimeBetweenFrames) {
         this.trackFps();
         this.beginFrame();
         this.update(this.#timeSinceLastFrame);
-        this.draw(0);//TODO: remove interp?
+        this.draw();
         this.endFrame();
-        //}
 
         this.requestAnimationFrame();
     }
@@ -125,23 +122,13 @@ export class loop {
             throw ('Invalid previous frame timestamp');
         }
 
-        // if (this.#minimumTimeBetweenFrames === undefined ||
-        //     this.#minimumTimeBetweenFrames === null ||
-        //     Number.isNaN(this.#minimumTimeBetweenFrames) ||
-        //     this.#minimumTimeBetweenFrames < 0 ||
-        //     this.#minimumTimeBetweenFrames > 1000) {
-        //     throw ('Invalid minimum frame timestamp');
-        // }
-
         this.#timeSinceLastFrame = timestamp - this.#previousFrameTimestampHires;
 
-        //if (this.#timeSinceLastFrame >= this.#minimumTimeBetweenFrames) {
         this.#previousFrameTimestampHires = this.#currentFrameTimestampHires;
         this.#previousFrameTimestampInSecs = this.#currentFrameTimestampInSecs;
 
         this.#currentFrameTimestampHires = timestamp;
         this.#currentFrameTimestampInSecs = Math.floor(timestamp / 1000);
-        //}
     }
 
     trackFps() {

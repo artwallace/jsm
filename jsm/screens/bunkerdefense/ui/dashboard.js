@@ -27,8 +27,8 @@ export class dashboard extends actor2dbase {
         //this.status = this.game.bunkergun.status();
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.fillStyle = this.color;
         this.game.view.ctx.fillRect(this.left, this.top, this.width, this.height);

@@ -58,8 +58,8 @@ export class button2dbase extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         if (this.isHilighted) {
             this.game.view.ctx.fillStyle = this.hoverColor;

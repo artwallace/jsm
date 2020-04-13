@@ -18,8 +18,8 @@ export class title extends actor2dbase {
         this.y = this.game.level.levelHeight / 4;
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.font = '48px Orbitron';
         this.game.view.ctx.fillStyle = 'green';

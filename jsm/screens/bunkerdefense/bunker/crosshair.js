@@ -95,8 +95,8 @@ export class crosshair extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.lineWidth = this.#thickness;
         if (this.#aimAllowsFiring) {

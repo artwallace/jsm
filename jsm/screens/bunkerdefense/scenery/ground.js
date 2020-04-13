@@ -17,8 +17,8 @@ export class ground extends actor2dbase {
         this.color = '#EDC9AF';
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.fillStyle = this.color;
         this.game.view.ctx.fillRect(this.x, this.y, this.width, this.height);

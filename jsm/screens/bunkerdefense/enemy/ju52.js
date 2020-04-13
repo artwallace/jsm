@@ -93,8 +93,8 @@ export class ju52 extends imageactor2dbase {
         }
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         if (this.game.debugInfoLevel >= 2) {
             this.game.view.ctx.fillStyle = 'rgba(0, 180, 0, 0.25)';

@@ -82,8 +82,8 @@ export class level2dbase extends gameitembase {
         this.updateActors(delta);
     }
 
-    draw(interp) {
-        this.drawActors(interp);
+    draw() {
+        this.drawActors();
     }
 
     updateDebugInfo() { }
@@ -144,7 +144,7 @@ export class level2dbase extends gameitembase {
             !a.readyForDeletion);
     }
 
-    drawActors(interp) {
+    drawActors() {
         this.game.view.setTransformToLevel();
         for (let layer = this.minLayer; layer <= this.maxLayer; layer++) {
             let actorsInLayer = this.actors.filter(a =>
@@ -157,12 +157,12 @@ export class level2dbase extends gameitembase {
                 if (!a.isInitialized) {
                     throw 'Attempt to draw an uninitialized actor.';
                 }
-                a.draw(interp);
+                a.draw();
             });
         }
     }
 
-    drawDebugActors(interp) {
+    drawDebugActors() {
         for (let layer = this.minLayer; layer <= this.maxLayer; layer++) {
             let actorsInLayer = this.actors.filter(a =>
                 a !== undefined &&
@@ -170,7 +170,7 @@ export class level2dbase extends gameitembase {
                 !a.readyForDeletion &&
                 a.layer == layer);
             actorsInLayer.forEach(a => {
-                a.drawdebug(interp);
+                a.drawdebug();
             });
         }
     }

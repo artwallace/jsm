@@ -15,8 +15,8 @@ export class view2dscrollable extends view2dbase {
         this.markViewSizeAsNeedingUpdate();
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
         //this.setTransformToLevel();
     }
 

@@ -29,8 +29,8 @@ export class ovaltree extends treebase {
         this.leafRadiusY = getRandomIntFromRange(10, 15);
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.x, this.y);

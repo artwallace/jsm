@@ -36,8 +36,8 @@ export class sun extends actor2dbase {
     //     super.update(delta);
     // }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);

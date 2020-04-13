@@ -58,8 +58,8 @@ export class about extends button2dbase {
         this.y = this.game.level.levelHeight / 5 + 100 * (this.#row + 1);
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         //TODO: should probably make this standard in button2base, or create linkbutton2dbase.
         if (this.isHilighted) {

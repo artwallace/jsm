@@ -105,8 +105,8 @@ export class palmtree extends treebase {
         return { color, tipX, tipY, upperControlX, upperControlY, lowerControlX, lowerControlY };
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.x, this.y);
@@ -127,8 +127,8 @@ export class palmtree extends treebase {
         });
     }
 
-    // drawdebug(interp) {
-    //     super.drawdebug(interp);
+    // drawdebug() {
+    //     super.drawdebug();
 
     //     if (this.game.view.debugInfoLevel >= 2) {
     //         this.game.view.ctx.fillStyle = 'rgba(180, 0, 0, 0.25)';

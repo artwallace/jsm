@@ -23,8 +23,8 @@ export class ship extends imageactor2dbase {
         // }
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         // if (this.world.debugInfoLevel >= 2) {
         //     this.world.ctx.fillStyle = 'rgba(0, 180, 0, 0.25)';

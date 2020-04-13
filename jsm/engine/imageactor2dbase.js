@@ -64,8 +64,8 @@ export class imageactor2dbase extends actor2dbase {
         this.bottom = this.top + this.height;
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         if (this.#img === undefined ||
             this.#img === null ||

@@ -28,8 +28,8 @@ export class aagunbullet extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         if (this.readyForDeletion) {
             return;
@@ -42,8 +42,8 @@ export class aagunbullet extends actor2dbase {
         this.game.view.ctx.fill();
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         if (this.game.debugInfoLevel >= this.game.debugInfoMaxLevel) {
             this.game.view.ctx.font = '10px Arial';

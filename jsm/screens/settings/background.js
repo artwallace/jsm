@@ -24,8 +24,8 @@ export class background extends actor2dbase {
         this.height = this.game.level.levelHeight;
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.fillStyle = this.color;
         this.game.view.ctx.fillRect(this.x, this.y, this.width, this.height);

@@ -25,8 +25,8 @@ export class mountain extends actor2dbase {
         this.color = getRandomFromArray(this.colors);
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.x, this.y - this.height);

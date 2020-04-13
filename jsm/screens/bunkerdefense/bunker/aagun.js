@@ -85,8 +85,8 @@ export class aagun extends gunbase {
         this.#testY = tY;
     }
 
-    draw(interp) {
-        //super.draw(interp);
+    draw() {
+        //super.draw();
 
         this.game.view.ctx.lineWidth = this.thickness;
         this.game.view.ctx.strokeStyle = 'black';
@@ -104,8 +104,8 @@ export class aagun extends gunbase {
         this.game.view.ctx.stroke();
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         if (this.game.debugInfoLevel >= 2) {
             this.game.view.ctx.beginPath();

@@ -42,9 +42,9 @@ export class actor2dbase extends gameitembase {
 
     update(delta) { }
 
-    draw(interp) { }
+    draw() { }
 
-    drawdebug(interp) { }
+    drawdebug() { }
 
     //TODO: add simple positioning methods, eg setPstnAtCenterOfBox, etc
 

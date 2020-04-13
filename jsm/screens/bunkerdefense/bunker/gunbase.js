@@ -103,8 +103,8 @@ export class gunbase extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.lineWidth = this.thickness;
         this.game.view.ctx.strokeStyle = 'black';
@@ -115,8 +115,8 @@ export class gunbase extends actor2dbase {
         this.game.view.ctx.stroke();
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         if (this.game.debugInfoLevel >= 2) {
             //TODO: hopefully that's offscreen. come up with something better.

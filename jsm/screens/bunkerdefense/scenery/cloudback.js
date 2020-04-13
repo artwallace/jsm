@@ -48,8 +48,8 @@ export class cloudback extends actor2dbase {
         this.y = this.following.y;
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.fillStyle = this.color;
         this.pieces.forEach(piece => {

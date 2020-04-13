@@ -47,8 +47,8 @@ export class cannonshell extends actor2dbase {
         }
     }
 
-    draw(interp) {
-        super.draw(interp);
+    draw() {
+        super.draw();
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);
@@ -57,8 +57,8 @@ export class cannonshell extends actor2dbase {
         this.game.view.ctx.fill();
     }
 
-    drawdebug(interp) {
-        super.drawdebug(interp);
+    drawdebug() {
+        super.drawdebug();
 
         if (this.game.debugInfoLevel >= 2) {
             this.game.view.ctx.beginPath();
