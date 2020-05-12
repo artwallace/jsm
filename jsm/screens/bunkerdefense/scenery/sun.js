@@ -4,12 +4,12 @@ import { getRandomIntFromRange } from '../../../engine/utilities.js';
 export class sun extends actor2dbase {
     //TODO: add sunlight rays that slowly rotate.
     //TODO: vary the color.
-    startAngle = 0;
-    endAngle = Math.PI * 2;
+    #startAngle = 0;
+    #endAngle = Math.PI * 2;
 
-    color = '#f9d71c';
+    #color = '#f9d71c';
 
-    radius = 0;
+    #radius = 0;
 
     constructor(game) {
         super(game, 0, 0, 0);
@@ -27,9 +27,9 @@ export class sun extends actor2dbase {
         let minRadius = 40;
         let maxRadius = 80;
 
-        this.radius = getRandomIntFromRange(minRadius, maxRadius);
-        this.width = this.radius * 2;
-        this.height = this.radius * 2;
+        this.#radius = getRandomIntFromRange(minRadius, maxRadius);
+        this.width = this.#radius * 2;
+        this.height = this.#radius * 2;
     }
 
     // update(delta) {
@@ -40,9 +40,9 @@ export class sun extends actor2dbase {
         super.draw();
 
         this.game.view.ctx.beginPath();
-        this.game.view.ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);
+        this.game.view.ctx.arc(this.x, this.y, this.#radius, this.#startAngle, this.#endAngle);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.fillStyle = this.color;
+        this.game.view.ctx.fillStyle = this.#color;
         this.game.view.ctx.fill();
     }
 }

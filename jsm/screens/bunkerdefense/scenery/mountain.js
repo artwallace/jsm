@@ -3,9 +3,11 @@ import { getRandomIntFromRange, getRandomFromRange, getRandomFromArray } from '.
 
 export class mountain extends actor2dbase {
     //TODO: make color lighter for mountains that are on top.
-    color = '';
+    #color = '';
+    #colors = ['#888888', '#909090', '#989898', '#A0A0A0', '#A8A8A8', '#A9A9A9'];
 
-    colors = ['#888888', '#909090', '#989898', '#A0A0A0', '#A8A8A8', '#A9A9A9'];
+    #baseLeftX = 0;
+    #baseRightX = 0;
 
     constructor(game) {
         super(game, 0, 0, 0);
@@ -22,7 +24,10 @@ export class mountain extends actor2dbase {
         this.height = getRandomIntFromRange(100, 400);
         this.width = this.height * widthMulti;
 
-        this.color = getRandomFromArray(this.colors);
+        this.#color = getRandomFromArray(this.#colors);
+
+        this.#baseLeftX = this.x - this.width / 2;
+        this.#baseRightX = this.x + this.width / 2;
     }
 
     draw() {
@@ -30,10 +35,10 @@ export class mountain extends actor2dbase {
 
         this.game.view.ctx.beginPath();
         this.game.view.ctx.moveTo(this.x, this.y - this.height);
-        this.game.view.ctx.lineTo(this.x + this.width / 2, this.y);
-        this.game.view.ctx.lineTo(this.x - this.width / 2, this.y);
+        this.game.view.ctx.lineTo(this.#baseRightX, this.y);
+        this.game.view.ctx.lineTo(this.#baseLeftX, this.y);
         this.game.view.ctx.closePath();
-        this.game.view.ctx.fillStyle = this.color;
+        this.game.view.ctx.fillStyle = this.#color;
         this.game.view.ctx.fill();
     }
 }

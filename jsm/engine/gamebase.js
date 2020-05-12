@@ -163,6 +163,17 @@ export class gamebase {
         this.view.draw();
         this.level.draw();
         this.view.drawLevelClipping();
+    }
+    postdraw() {
+        //loop calls this method. do not call it from anywhere else.
+    }
+
+    predrawDebug() {
+        //loop calls this method. do not call it from anywhere else.
+    }
+
+    drawDebug() {
+        //loop calls this method. do not call it from anywhere else.
 
         if (this.#debugInfoLevel > this.#debugInfoMinLevel) {
             this.view.setTransformToLevel();
@@ -174,7 +185,8 @@ export class gamebase {
             this.drawDebugInfo();
         }
     }
-    postdraw() {
+
+    postdrawDebug() {
         //loop calls this method. do not call it from anywhere else.
     }
 
@@ -523,6 +535,9 @@ export class gamebase {
         if (this.#debugInfoLevel >= 1) {
             this.debuginfoAddLine('Press i key to toggle debug mode, level: ' + this.#debugInfoLevel + ' of ' + this.#debugInfoMaxLevel);
             this.debuginfoAddLine('fps: ' + Math.round(this.loop.fps) + ', avg: ' + Math.round(this.loop.fpsAvg));
+            this.debuginfoAddLine('update: ' + this.loop.elapsedTimeForUpdateAvg.toFixed(3));
+            this.debuginfoAddLine('draw: ' + this.loop.elapsedTimeForDrawAvg.toFixed(3));
+            this.debuginfoAddLine('debug draw: ' + this.loop.elapsedTimeForDrawDebugAvg.toFixed(3));
         }
 
         if (this.#debugInfoLevel >= 2) {

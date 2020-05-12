@@ -223,12 +223,11 @@ export class gunpanelbase extends actor2dbase {
         this.game.view.ctx.textAlign = 'left';
         this.game.view.ctx.textBaseline = 'middle';
         this.game.view.ctx.fillText(label, left + this.#upgradeLabelPadSide, top + (this.#upgradeHeight / 2));
+        this.game.view.ctx.textAlign = 'right';
         if (level >= maxLevel) {
-            this.game.view.ctx.textAlign = 'right';
             this.game.view.ctx.fillText('max', left + this.#upgradeWidth - this.#upgradeLabelPadSide, top + (this.#upgradeHeight / 2));
         }
         else {
-            this.game.view.ctx.textAlign = 'right';
             this.game.view.ctx.fillText('+' + cost + 'c', left + this.#upgradeWidth - this.#upgradeLabelPadSide, top + (this.#upgradeHeight / 2));
         }
     }

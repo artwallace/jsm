@@ -15,6 +15,13 @@ export class loop {
     #maxFpsStatEntriesToTrack = 120;
     #fpsStats = [];
     #fpsFirstFrameComplete = false;
+    #maxElapsedTimeEntriesToTrack = 60;
+    #elapsedTimeForUpdate = 0;
+    #elapsedTimeForDraw = 0;
+    #elapsedTimeForDrawDebug = 0;
+    #elapsedTimeForUpdateStats = [];
+    #elapsedTimeForDrawStats = [];
+    #elapsedTimeForDrawDebugStats = [];
 
     constructor(game) {
         if (game === undefined ||
@@ -38,7 +45,7 @@ export class loop {
         this.#stop = false;
         this.setInitialFrameTimes();
         this.updateFrameTimes(this.#previousFrameTimestampHires);
-        this.trackFps();
+        this.calculatePerformanceMetrics();
         this.requestAnimationFrame();
     }
 
@@ -56,9 +63,13 @@ export class loop {
 
     update(delta) {
         if (!this.#game.stopRequested) {
+            let startTime = window.performance.now();
+
             this.#game.preupdate(delta);
             this.#game.update(delta);
             this.#game.postupdate(delta);
+
+            this.#elapsedTimeForUpdate = window.performance.now() - startTime;
 
             if (this.#game.stopRequested) {
                 this.#game.stop();
@@ -68,9 +79,25 @@ export class loop {
 
     draw() {
         if (!this.#game.stopRequested) {
+            let startTime = window.performance.now();
+
             this.#game.predraw();
             this.#game.draw();
             this.#game.postdraw();
+
+            this.#elapsedTimeForDraw = window.performance.now() - startTime;
+        }
+    }
+
+    drawDebug() {
+        if (!this.#game.stopRequested) {
+            let startTime = window.performance.now();
+
+            this.#game.predrawDebug();
+            this.#game.drawDebug();
+            this.#game.postdrawDebug();
+
+            this.#elapsedTimeForDrawDebug = window.performance.now() - startTime;
         }
     }
 
@@ -81,10 +108,11 @@ export class loop {
 
         this.updateFrameTimes(timestamp);
 
-        this.trackFps();
+        this.calculatePerformanceMetrics();
         this.beginFrame();
         this.update(this.#timeSinceLastFrame);
         this.draw();
+        this.drawDebug();
         this.endFrame();
 
         this.requestAnimationFrame();
@@ -131,10 +159,25 @@ export class loop {
         this.#currentFrameTimestampInSecs = Math.floor(timestamp / 1000);
     }
 
-    trackFps() {
+    calculatePerformanceMetrics() {
         if (this.#fpsStats === undefined ||
             this.#fpsStats === null) {
             throw ('Invalid FPS stats.');
+        }
+
+        if (this.#elapsedTimeForUpdateStats === undefined ||
+            this.#elapsedTimeForUpdateStats === null) {
+            throw ('Invalid update stats.');
+        }
+
+        if (this.#elapsedTimeForDrawStats === undefined ||
+            this.#elapsedTimeForDrawStats === null) {
+            throw ('Invalid draw stats.');
+        }
+
+        if (this.#elapsedTimeForDrawDebugStats === undefined ||
+            this.#elapsedTimeForDrawDebugStats === null) {
+            throw ('Invalid draw debug stats.');
         }
 
         this.#framesThisSec++;
@@ -150,6 +193,21 @@ export class loop {
                 this.#fpsFirstFrameComplete = true;
             }
             this.#framesThisSec = 0;
+        }
+
+        this.#elapsedTimeForUpdateStats.push(this.#elapsedTimeForUpdate);
+        if (this.#elapsedTimeForUpdateStats.length > this.#maxElapsedTimeEntriesToTrack) {
+            this.#elapsedTimeForUpdateStats.shift();
+        }
+
+        this.#elapsedTimeForDrawStats.push(this.#elapsedTimeForDraw);
+        if (this.#elapsedTimeForDrawStats.length > this.#maxElapsedTimeEntriesToTrack) {
+            this.#elapsedTimeForDrawStats.shift();
+        }
+
+        this.#elapsedTimeForDrawDebugStats.push(this.#elapsedTimeForDrawDebug);
+        if (this.#elapsedTimeForDrawDebugStats.length > this.#maxElapsedTimeEntriesToTrack) {
+            this.#elapsedTimeForDrawDebugStats.shift();
         }
     }
 
@@ -197,5 +255,68 @@ export class loop {
             total += this.#fpsStats[i];
         }
         return total / this.#fpsStats.length;
+    }
+
+    get elapsedTimeForUpdate() {
+        return this.#elapsedTimeForUpdate;
+    }
+
+    get elapsedTimeForDraw() {
+        return this.#elapsedTimeForDraw;
+    }
+
+    get elapsedTimeForDrawDebug() {
+        return this.#elapsedTimeForDrawDebug;
+    }
+
+    get elapsedTimeForUpdateAvg() {
+        if (this.#elapsedTimeForUpdateStats === undefined ||
+            this.#elapsedTimeForUpdateStats === null) {
+            throw ('Invalid update stats.');
+        }
+
+        if (this.#elapsedTimeForUpdateStats.length === 0) {
+            return 0;
+        }
+
+        let total = 0;
+        for (var i = 0; i < this.#elapsedTimeForUpdateStats.length; i++) {
+            total += this.#elapsedTimeForUpdateStats[i];
+        }
+        return total / this.#elapsedTimeForUpdateStats.length;
+    }
+
+    get elapsedTimeForDrawAvg() {
+        if (this.#elapsedTimeForDrawStats === undefined ||
+            this.#elapsedTimeForDrawStats === null) {
+            throw ('Invalid draw stats.');
+        }
+
+        if (this.#elapsedTimeForDrawStats.length === 0) {
+            return 0;
+        }
+
+        let total = 0;
+        for (var i = 0; i < this.#elapsedTimeForDrawStats.length; i++) {
+            total += this.#elapsedTimeForDrawStats[i];
+        }
+        return total / this.#elapsedTimeForDrawStats.length;
+    }
+
+    get elapsedTimeForDrawDebugAvg() {
+        if (this.#elapsedTimeForDrawDebugStats === undefined ||
+            this.#elapsedTimeForDrawDebugStats === null) {
+            throw ('Invalid draw debug stats.');
+        }
+
+        if (this.#elapsedTimeForDrawDebugStats.length === 0) {
+            return 0;
+        }
+
+        let total = 0;
+        for (var i = 0; i < this.#elapsedTimeForDrawDebugStats.length; i++) {
+            total += this.#elapsedTimeForDrawDebugStats[i];
+        }
+        return total / this.#elapsedTimeForDrawDebugStats.length;
     }
 }

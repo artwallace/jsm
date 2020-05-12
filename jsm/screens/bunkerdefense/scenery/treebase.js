@@ -14,6 +14,7 @@ export class treebase extends actor2dbase {
 
     trunkHeight = 0;
     trunkThickness = 0;
+    trunkTop = 0;
 
     constructor(game, x, y, layer) {
         super(game, x, y, 0);

@@ -2,13 +2,8 @@ import { treebase } from './treebase.js';
 import { getRandomIntFromRange, getRandomFromRange, getRandomFromArray, getPointFromAngle, convertFromDegreesToRadians } from '../../../engine/utilities.js';
 
 export class palmtree extends treebase {
-    trunkColor = '#9b7653';
-
     leafColors = ['#4d8c57', '#acbf60', '#5e8c31', '#45a27d', '#5fa778', '#5da493', '#b5b35c'];
     trunkColors = ['#9b7653', '#a17a74', '#bd8260', '#832a0d', '#87421f', '#664228', '#805533'];
-
-    trunkHeight = 0;
-    trunkThickness = 0;
 
     trunkTopX = 0;
     trunkTopY = 0;
