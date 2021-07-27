@@ -16,8 +16,8 @@ export class palmtree extends treebase {
     startAngle = 0;
     endAngle = Math.PI * 2;
 
-    constructor(game, x, y, layer) {
-        super(game, x, y, layer);
+    constructor(game, x, y) {
+        super(game, x, y);
 
         this.trunkColor = getRandomFromArray(this.trunkColors);
 
@@ -100,25 +100,25 @@ export class palmtree extends treebase {
         return { color, tipX, tipY, upperControlX, upperControlY, lowerControlX, lowerControlY };
     }
 
-    draw() {
-        super.draw();
+    drawToOffscreenCtx(offscreenCtx, canvasOffsetX, canvasOffsetY) {
+        super.drawToOffscreenCtx(offscreenCtx);
 
-        this.game.view.ctx.beginPath();
-        this.game.view.ctx.moveTo(this.x, this.y);
-        this.game.view.ctx.lineTo(this.trunkTopX, this.trunkTopY);
-        this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.trunkThickness;
-        this.game.view.ctx.strokeStyle = this.trunkColor;
-        this.game.view.ctx.stroke();
+        offscreenCtx.beginPath();
+        offscreenCtx.moveTo(this.x - canvasOffsetX, this.y - canvasOffsetY);
+        offscreenCtx.lineTo(this.trunkTopX - canvasOffsetX, this.trunkTopY - canvasOffsetY);
+        offscreenCtx.closePath();
+        offscreenCtx.lineWidth = this.trunkThickness;
+        offscreenCtx.strokeStyle = this.trunkColor;
+        offscreenCtx.stroke();
 
         this.leaves.forEach(leaf => {
-            this.game.view.ctx.fillStyle = leaf.color;
-            this.game.view.ctx.beginPath();
-            this.game.view.ctx.moveTo(this.leafOriginX, this.leafOriginY);
-            this.game.view.ctx.quadraticCurveTo(leaf.upperControlX, leaf.upperControlY, leaf.tipX, leaf.tipY);
-            this.game.view.ctx.quadraticCurveTo(leaf.lowerControlX, leaf.lowerControlY, this.leafOriginX, this.leafOriginY);
-            this.game.view.ctx.closePath();
-            this.game.view.ctx.fill();
+            offscreenCtx.fillStyle = leaf.color;
+            offscreenCtx.beginPath();
+            offscreenCtx.moveTo(this.leafOriginX - canvasOffsetX, this.leafOriginY - canvasOffsetY);
+            offscreenCtx.quadraticCurveTo(leaf.upperControlX - canvasOffsetX, leaf.upperControlY - canvasOffsetY, leaf.tipX - canvasOffsetX, leaf.tipY - canvasOffsetY);
+            offscreenCtx.quadraticCurveTo(leaf.lowerControlX - canvasOffsetX, leaf.lowerControlY - canvasOffsetY, this.leafOriginX - canvasOffsetX, this.leafOriginY - canvasOffsetY);
+            offscreenCtx.closePath();
+            offscreenCtx.fill();
         });
     }
 
@@ -126,19 +126,19 @@ export class palmtree extends treebase {
     //     super.drawdebug();
 
     //     if (this.game.view.debugInfoLevel >= 2) {
-    //         this.game.view.ctx.fillStyle = 'rgba(180, 0, 0, 0.25)';
+    //         offscreenCtx.fillStyle = 'rgba(180, 0, 0, 0.25)';
     //         this.leaves.forEach(leaf => {
-    //             this.game.view.ctx.beginPath();
-    //             this.game.view.ctx.arc(leaf.upperControlX, leaf.upperControlY, 1, this.startAngle, this.endAngle);
-    //             this.game.view.ctx.arc(leaf.lowerControlX, leaf.lowerControlY, 1, this.startAngle, this.endAngle);
-    //             this.game.view.ctx.closePath();
-    //             this.game.view.ctx.fill();
+    //             offscreenCtx.beginPath();
+    //             offscreenCtx.arc(leaf.upperControlX, leaf.upperControlY, 1, this.startAngle, this.endAngle);
+    //             offscreenCtx.arc(leaf.lowerControlX, leaf.lowerControlY, 1, this.startAngle, this.endAngle);
+    //             offscreenCtx.closePath();
+    //             offscreenCtx.fill();
     //         });
     //     }
     // }
 
-    static palmTreeAcrossRangeFactory(game, minX, maxX, groundY, layer) {
+    static palmTreeAcrossRangeFactory(game, minX, maxX, groundY) {
         let tX = getRandomIntFromRange(minX, maxX);
-        return new palmtree(game, tX, groundY, layer);
+        return new palmtree(game, tX, groundY);
     }
 }

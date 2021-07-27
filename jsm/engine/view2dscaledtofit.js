@@ -33,7 +33,7 @@ export class view2dscaledtofit extends view2dbase {
             Number.isNaN(this.game.level.levelHeight) ||
             this.game.level.levelHeight <= 0 ||
             this.game.level.levelHeight === Infinity) {
-                throw ('Invalid state.');
+            throw ('Invalid state.');
         }
 
         this.scaleWidth = this.viewWidth / this.game.level.levelWidth;

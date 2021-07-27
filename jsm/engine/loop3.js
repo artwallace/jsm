@@ -24,7 +24,7 @@ export class loop3 {
     }
 
     sendToWorker() {
-        worker.postMessage({ x:0, y:0 });
+        worker.postMessage({ x: 0, y: 0 });
     }
 
     receiveFromWorker(e) {

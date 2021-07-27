@@ -46,7 +46,7 @@ export class aagun extends gunbase {
 
         this.thickness = 3;
     }
-    
+
     // initialize() {
     // }
 
@@ -80,7 +80,7 @@ export class aagun extends gunbase {
         this.#muzzle4Y = this.#barrel4baseY + this.barrelLength * Math.sin(this.angle);
 
         let { x: tX, y: tY } = getPointFromAngle(this.game.level.bunker.x, this.game.level.bunker.y, this.angle, this.game.level.bunker.radius + 5);
-        
+
         this.#testX = tX;
         this.#testY = tY;
     }

@@ -11,8 +11,8 @@ export class cappedtree extends treebase {
     #leafRadiusX = 0;
     #leafRadiusY = 0;
 
-    constructor(game, x, y, layer) {
-        super(game, x, y, layer);
+    constructor(game, x, y) {
+        super(game, x, y);
 
         this.trunkColor = getRandomFromArray(this.trunkColors);
         this.leafColor = getRandomFromArray(this.leafColors);
@@ -26,26 +26,26 @@ export class cappedtree extends treebase {
         this.trunkTop = this.y - this.trunkHeight;
     }
 
-    draw() {
-        super.draw();
+    drawToOffscreenCtx(offscreenCtx, canvasOffsetX, canvasOffsetY) {
+        super.drawToOffscreenCtx(offscreenCtx);
 
-        this.game.view.ctx.beginPath();
-        this.game.view.ctx.moveTo(this.x, this.y);
-        this.game.view.ctx.lineTo(this.x, this.trunkTop);
-        this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.trunkThickness;
-        this.game.view.ctx.strokeStyle = this.trunkColor;
-        this.game.view.ctx.stroke();
+        offscreenCtx.beginPath();
+        offscreenCtx.moveTo(this.x - canvasOffsetX, this.y - canvasOffsetY);
+        offscreenCtx.lineTo(this.x - canvasOffsetX, this.trunkTop - canvasOffsetY);
+        offscreenCtx.closePath();
+        offscreenCtx.lineWidth = this.trunkThickness;
+        offscreenCtx.strokeStyle = this.trunkColor;
+        offscreenCtx.stroke();
 
-        this.game.view.ctx.beginPath();
-        this.game.view.ctx.ellipse(this.x, this.trunkTop, this.#leafRadiusX, this.#leafRadiusY, 0, this.#startAngle, this.#endAngle);
-        this.game.view.ctx.closePath();
-        this.game.view.ctx.fillStyle = this.leafColor;
-        this.game.view.ctx.fill();
+        offscreenCtx.beginPath();
+        offscreenCtx.ellipse(this.x - canvasOffsetX, this.trunkTop - canvasOffsetY, this.#leafRadiusX, this.#leafRadiusY, 0, this.#startAngle, this.#endAngle);
+        offscreenCtx.closePath();
+        offscreenCtx.fillStyle = this.leafColor;
+        offscreenCtx.fill();
     }
 
-    static cappedTreeAcrossRangeFactory(game, minX, maxX, groundY, layer) {
+    static cappedTreeAcrossRangeFactory(game, minX, maxX, groundY) {
         let tX = getRandomIntFromRange(minX, maxX);
-        return new cappedtree(game, tX, groundY, layer);
+        return new cappedtree(game, tX, groundY);
     }
 }

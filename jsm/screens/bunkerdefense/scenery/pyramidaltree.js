@@ -9,8 +9,8 @@ export class pyramidaltree extends treebase {
     #leafBaseRight = 0;
 
     //TODO: add multiple leaf layers
-    constructor(game, x, y, layer) {
-        super(game, x, y, layer);
+    constructor(game, x, y) {
+        super(game, x, y);
 
         this.trunkColor = getRandomFromArray(this.trunkColors);
         this.leafColor = getRandomFromArray(this.leafColors);
@@ -27,28 +27,28 @@ export class pyramidaltree extends treebase {
         this.#leafBaseRight = this.x + this.leafWidth / 2;
     }
 
-    draw() {
-        super.draw();
+    drawToOffscreenCtx(offscreenCtx, canvasOffsetX, canvasOffsetY) {
+        super.drawToOffscreenCtx(offscreenCtx);
 
-        this.game.view.ctx.beginPath();
-        this.game.view.ctx.moveTo(this.x, this.y);
-        this.game.view.ctx.lineTo(this.x, this.trunkTop);
-        this.game.view.ctx.closePath();
-        this.game.view.ctx.lineWidth = this.trunkThickness;
-        this.game.view.ctx.strokeStyle = this.trunkColor;
-        this.game.view.ctx.stroke();
+        offscreenCtx.beginPath();
+        offscreenCtx.moveTo(this.x - canvasOffsetX, this.y - canvasOffsetY);
+        offscreenCtx.lineTo(this.x - canvasOffsetX, this.trunkTop - canvasOffsetY);
+        offscreenCtx.closePath();
+        offscreenCtx.lineWidth = this.trunkThickness;
+        offscreenCtx.strokeStyle = this.trunkColor;
+        offscreenCtx.stroke();
 
-        this.game.view.ctx.beginPath();
-        this.game.view.ctx.moveTo(this.x, this.y - this.trunkHeight - this.leafHeight);
-        this.game.view.ctx.lineTo(this.#leafBaseRight, this.trunkTop);
-        this.game.view.ctx.lineTo(this.#leafBaseLeft, this.trunkTop);
-        this.game.view.ctx.closePath();
-        this.game.view.ctx.fillStyle = this.leafColor;
-        this.game.view.ctx.fill();
+        offscreenCtx.beginPath();
+        offscreenCtx.moveTo(this.x - canvasOffsetX, this.y - this.trunkHeight - this.leafHeight - canvasOffsetY);
+        offscreenCtx.lineTo(this.#leafBaseRight - canvasOffsetX, this.trunkTop - canvasOffsetY);
+        offscreenCtx.lineTo(this.#leafBaseLeft - canvasOffsetX, this.trunkTop - canvasOffsetY);
+        offscreenCtx.closePath();
+        offscreenCtx.fillStyle = this.leafColor;
+        offscreenCtx.fill();
     }
 
-    static pyramidalTreeAcrossRangeFactory(game, minX, maxX, groundY, layer) {
+    static pyramidalTreeAcrossRangeFactory(game, minX, maxX, groundY) {
         let tX = getRandomIntFromRange(minX, maxX);
-        return new pyramidaltree(game, tX, groundY, layer);
+        return new pyramidaltree(game, tX, groundY);
     }
 }

@@ -45,7 +45,7 @@ export class button2dbase extends actor2dbase {
             this.game.level.mouseY === undefined |
             this.game.level.mouseY === null ||
             Number.isNaN(this.game.level.mouseY)) {
-                throw ('Invalid mouse coordinates.');
+            throw ('Invalid mouse coordinates.');
         }
 
         if (checkIfPointIsInsideRect(this.game.level.mouseX, this.game.level.mouseY, this.left, this.top, this.right, this.bottom)) {

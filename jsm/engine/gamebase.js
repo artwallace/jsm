@@ -179,7 +179,7 @@ export class gamebase {
             this.view.setTransformToLevel();
             //this.drawBackgroundDebug()
             this.level.drawDebugActors();
-            
+
             this.view.setTransformToView();
             this.drawDebugMouse();
             this.drawDebugInfo();

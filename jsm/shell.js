@@ -31,8 +31,7 @@ export class shell extends shellbase {
             this.game.postinitialize();
             this.game.start();
         }
-        else if (this.mainmenuFactory != null)
-        {
+        else if (this.mainmenuFactory != null) {
             this.game = this.mainmenuFactory(this);
             // this.game.launchfunc = null;
             this.game.preinitialize();

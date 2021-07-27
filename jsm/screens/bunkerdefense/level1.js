@@ -13,7 +13,6 @@ import { cloudback } from './scenery/cloudback.js';
 import { ju52 } from './enemy/ju52.js';
 import { sun } from './scenery/sun.js';
 import { mountain } from './scenery/mountain.js';
-import { treebase } from './scenery/treebase.js';
 import { roundtree } from './scenery/roundtree.js';
 import { pyramidaltree } from './scenery/pyramidaltree.js';
 import { ovaltree } from './scenery/ovaltree.js';
@@ -24,6 +23,7 @@ import { aagunpanel } from './ui/aagunpanel.js';
 import { cannonpanel } from './ui/cannonpanel.js';
 import { mortarpanel } from './ui/mortarpanel.js';
 import { getRandomIntFromRange, checkIfPointIsInsideRect } from '../../engine/utilities.js';
+import { forest } from './scenery/forest.js';
 
 export class level1 extends level2dbase {
     groundlevel = 0;
@@ -81,7 +81,7 @@ export class level1 extends level2dbase {
             this.spawnCloud(0 + 100, this.levelWidth - 100, 50, 300);
         }
 
-        this.spawnTrees();
+        this.spawnForests();
 
         this.spawnRandomJunkForTesting = true;
     }
@@ -132,15 +132,14 @@ export class level1 extends level2dbase {
     }
 
     spawnCloud(minX, maxX, minY, maxY) {
-        let cloud1 = new cloud(this.game);
-        cloud1.x = getRandomIntFromRange(minX, maxX);
-        cloud1.y = getRandomIntFromRange(minY, maxY);
-        cloud1.initialize();
+        let x = getRandomIntFromRange(minX, maxX);
+        let y = getRandomIntFromRange(minY, maxY)
+        let cloud1 = new cloud(this.game, x, y);
         this.addActor(cloud1);
 
-        let cloudback1 = new cloudback(this.game, cloud1);
-        cloudback1.initialize();
-        this.addActor(cloudback1);
+        // let cloudback1 = new cloudback(this.game, cloud1);
+        // cloudback1.initialize();
+        // this.addActor(cloudback1);
     }
 
     spawnJu52(minX, maxX, minY, maxY) {
@@ -150,12 +149,7 @@ export class level1 extends level2dbase {
         this.addActor(ju52a);
     }
 
-    spawnTrees() {
-        let leftBackgroundCount = getRandomIntFromRange(10, 30);
-        let leftForegroundCount = getRandomIntFromRange(10, 30);
-        let rightBackgroundCount = getRandomIntFromRange(10, 30);
-        let rightForegroundCount = getRandomIntFromRange(10, 30);
-
+    spawnForests() {
         let worldPadding = 20;
         let bunkerPadding = 150;
 
@@ -166,36 +160,17 @@ export class level1 extends level2dbase {
 
         //TODO: this should be specified by the level's theme, eg desert, etc
         let treetypes = [
-            { name: roundtree.name, function(game, minX, maxX, groundY, layer) { return roundtree.roundTreeAcrossRangeFactory(game, minX, maxX, groundY, layer); } },
-            { name: pyramidaltree.name, function(game, minX, maxX, groundY, layer) { return pyramidaltree.pyramidalTreeAcrossRangeFactory(game, minX, maxX, groundY, layer); } },
-            { name: ovaltree.name, function(game, minX, maxX, groundY, layer) { return ovaltree.ovalTreeAcrossRangeFactory(game, minX, maxX, groundY, layer); } },
-            { name: cappedtree.name, function(game, minX, maxX, groundY, layer) { return cappedtree.cappedTreeAcrossRangeFactory(game, minX, maxX, groundY, layer); } },
-            // { name: palmtree.name, function(game, minX, maxX, groundY, layer) { return palmtree.palmTreeAcrossRangeFactory(game, minX, maxX, groundY, layer); } }
+            { name: roundtree.name, function(game, minX, maxX, groundY) { return roundtree.roundTreeAcrossRangeFactory(game, minX, maxX, groundY); } },
+            { name: pyramidaltree.name, function(game, minX, maxX, groundY) { return pyramidaltree.pyramidalTreeAcrossRangeFactory(game, minX, maxX, groundY); } },
+            { name: ovaltree.name, function(game, minX, maxX, groundY) { return ovaltree.ovalTreeAcrossRangeFactory(game, minX, maxX, groundY); } },
+            { name: cappedtree.name, function(game, minX, maxX, groundY) { return cappedtree.cappedTreeAcrossRangeFactory(game, minX, maxX, groundY); } },
+            // { name: palmtree.name, function(game, minX, maxX, groundY) { return palmtree.palmTreeAcrossRangeFactory(game, minX, maxX, groundY); } }
         ];
 
-        while (leftBackgroundCount > 0) {
-            let t = treebase.randomTreeAcrossRangeFactory(treetypes, this.game, leftMin, leftMax, this.groundlevel, this.defaultLayer - 1);
-            this.addActor(t);
-            leftBackgroundCount--;
-        }
-
-        while (leftForegroundCount > 0) {
-            let t = treebase.randomTreeAcrossRangeFactory(treetypes, this.game, leftMin, leftMax, this.groundlevel, this.defaultLayer + 1);
-            this.addActor(t);
-            leftForegroundCount--;
-        }
-
-        while (rightBackgroundCount > 0) {
-            let t = treebase.randomTreeAcrossRangeFactory(treetypes, this.game, rightMin, rightMax, this.groundlevel, this.defaultLayer - 1);
-            this.addActor(t);
-            rightBackgroundCount--;
-        }
-
-        while (rightForegroundCount > 0) {
-            let t = treebase.randomTreeAcrossRangeFactory(treetypes, this.game, rightMin, rightMax, this.groundlevel, this.defaultLayer + 1);
-            this.addActor(t);
-            rightForegroundCount--;
-        }
+        this.addActor(new forest(this.game, getRandomIntFromRange(10, 30), treetypes, leftMin, leftMax, this.defaultLayer - 1));
+        this.addActor(new forest(this.game, getRandomIntFromRange(10, 30), treetypes, leftMin, leftMax, this.defaultLayer + 1));
+        this.addActor(new forest(this.game, getRandomIntFromRange(10, 30), treetypes, rightMin, rightMax, this.defaultLayer - 1));
+        this.addActor(new forest(this.game, getRandomIntFromRange(10, 30), treetypes, rightMin, rightMax, this.defaultLayer + 1));
     }
 
     //TODO: Move to a request model so that this happens with consistent timing.

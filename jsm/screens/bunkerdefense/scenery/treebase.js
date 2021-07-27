@@ -1,5 +1,5 @@
-import { actor2dbase } from '../../../engine/actor2dbase.js';
-import { getRandomIntFromRange, getRandomFromArray } from '../../../engine/utilities.js';
+import { getRandomFromArray } from '../../../engine/utilities.js';
+import { offscreencachedgameitem2dbase } from '../../../engine/offscreencachedgameitem2dbase.js';
 
 //TODO: Need a real solution to having actors that depend on having info about other actors.
 //TODO: Trees depend on knowing the ground level of the map.
@@ -8,7 +8,10 @@ import { getRandomIntFromRange, getRandomFromArray } from '../../../engine/utili
 //TODO: Add support for trees that lean.
 //TODO: ? Add support for trees that blow in the wind?
 //TODO: Add support for tree damage. Damaged trees provide less cover and concealment.
-export class treebase extends actor2dbase {
+
+//Note: trees are not actors for performance reasons- forests are.
+//Trees are like the pieces of clouds.
+export class treebase extends offscreencachedgameitem2dbase {
     trunkColor = '';
     leafColor = '';
 
@@ -16,14 +19,12 @@ export class treebase extends actor2dbase {
     trunkThickness = 0;
     trunkTop = 0;
 
-    constructor(game, x, y, layer) {
-        super(game, x, y, 0);
-
-        this.layer = layer;
+    constructor(game, x, y) {
+        super(game, x, y);
     }
 
-    static randomTreeAcrossRangeFactory(types, game, minX, maxX, ground, layer) {
+    static randomTreeAcrossRangeFactory(game, types, minX, maxX, ground) {
         let treeType = getRandomFromArray(types);
-        return treeType.function(game, minX, maxX, ground, layer);
+        return treeType.function(game, minX, maxX, ground);
     }
 }

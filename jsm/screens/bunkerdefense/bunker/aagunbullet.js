@@ -4,9 +4,9 @@ import { actor2dbase } from '../../../engine/actor2dbase.js';
 export class aagunbullet extends actor2dbase {
     #startAngle = 0;
     #endAngle = Math.PI * 2;
-    width = 1;
-    height = 1;
-    radius = 1;
+    width = 3;
+    height = 3;
+    radius = 3;
     color = 'black';
 
     constructor(game, startX, startY, startHeading) {

@@ -12,7 +12,7 @@ export class background extends actor2dbase {
 
     update(delta) {
         super.update(delta);
-        
+
         this.setDimenions();
     }
 

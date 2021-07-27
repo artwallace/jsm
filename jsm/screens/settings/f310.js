@@ -5,7 +5,7 @@ export class f310 extends imageactor2dbase {
         super(game);
 
         this.imagePath = './screens/settings/f310.png';
-        
+
         this.width = 755 / 2;
         this.height = 556 / 2;
         this.updateDimensions();

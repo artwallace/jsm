@@ -19,7 +19,7 @@ export class mortar extends gunbase {
 
         this.minFiringDist = 100;
     }
-    
+
     spawnBullet() {
         let b = new mortarshell2(this.game, this.muzzleX, this.muzzleY, this.angle);
         b.velocityX = -(this.muzzleX - this.game.level.mouseX) / 15;// / 100;

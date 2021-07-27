@@ -27,7 +27,7 @@ export class background extends actor2dbase {
 
     // update(delta) {
     //     super.update(delta);
-        
+
     //     this.gridColumns = this.world.worldWidth / this.gridSize;
     //     this.gridRows = this.world.worldHeight / this.gridSize;
     // }
@@ -50,18 +50,18 @@ export class background extends actor2dbase {
         let top = row * this.gridSize;
         let right = left + this.gridSize;
         let bottom = top + this.gridSize;
-        
+
         if (checkIfPointIsInsideRect(this.world.mouseInWorldX, this.world.mouseInWorldY, left, top, right, bottom)) {
             this.world.ctx.fillStyle = this.gridHighlightColor;
         }
         else if ((col % 2 == 0 && row % 2 == 0) ||
             (col % 2 != 0 && row % 2 != 0)) {
-                this.world.ctx.fillStyle = this.gridEvenColor;
+            this.world.ctx.fillStyle = this.gridEvenColor;
         }
         else {
             this.world.ctx.fillStyle = this.gridOffColor;
         }
-        
+
         this.world.ctx.fillRect(left, top, this.gridSize, this.gridSize);
     }
 }

@@ -1,8 +1,8 @@
-import { actor2dbase } from '../../../engine/actor2dbase.js';
+import { offscreencachedactor2dbase } from '../../../engine/offscreencachedactor2dbase.js';
 import { getRandomIntFromRange } from '../../../engine/utilities.js';
 
 //TODO: Vary the color
-export class cloud extends actor2dbase {
+export class cloud extends offscreencachedactor2dbase {
     #pieces = [];
     #minNumOfPieces = 1;
     #maxNumOfPieces = 7;
@@ -14,12 +14,14 @@ export class cloud extends actor2dbase {
     #endAngle = Math.PI * 2;
     color = 'rgba(255, 255, 255, 0.75)';
 
-    constructor(game) {
-        super(game, 0, 0, 0);
+    constructor(game, x, y) {
+        super(game, x, y, 0);
         this.layer = this.game.level.defaultLayer + 2;
     }
 
     initialize() {
+        super.initialize();
+
         let count = getRandomIntFromRange(this.#minNumOfPieces, this.#maxNumOfPieces);
         for (let index = 0; index < count; index++) {
             let pieceOffsetX = getRandomIntFromRange(-this.#minPieceWidth, this.#minPieceWidth);
@@ -29,6 +31,9 @@ export class cloud extends actor2dbase {
 
             this.#pieces[index] = { pieceOffsetX, pieceOffsetY, radiusX, radiusY };
         }
+
+        this.width = this.#maxPieceWidth * 3;
+        this.height = this.#maxPieceHeight * 3;
     }
 
     update(delta) {
@@ -41,15 +46,23 @@ export class cloud extends actor2dbase {
         }
     }
 
-    draw() {
-        super.draw();
+    drawToOffscreenCtx() {
+        super.drawToOffscreenCtx();
 
-        this.game.view.ctx.fillStyle = this.color;
+        if (this.#pieces === undefined ||
+            this.#pieces === null) {
+            throw ('Invalid pieces array');
+        }
+
+        // this.offscreenCtx.fillStyle = 'rgba(0, 180, 0, 0.25)';
+        // this.offscreenCtx.fillRect(0, 0, this.width, this.height);
+
+        this.offscreenCtx.fillStyle = this.color;
         this.#pieces.forEach(piece => {
-            this.game.view.ctx.beginPath();
-            this.game.view.ctx.ellipse(this.x + piece.pieceOffsetX, this.y + piece.pieceOffsetY, piece.radiusX, piece.radiusY, 0, this.#startAngle, this.#endAngle);
-            this.game.view.ctx.closePath();
-            this.game.view.ctx.fill();
+            this.offscreenCtx.beginPath();
+            this.offscreenCtx.ellipse(piece.pieceOffsetX + (this.width / 2), piece.pieceOffsetY + (this.height / 2), piece.radiusX, piece.radiusY, 0, this.#startAngle, this.#endAngle);
+            this.offscreenCtx.closePath();
+            this.offscreenCtx.fill();
         });
     }
 }

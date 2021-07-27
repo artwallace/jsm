@@ -14,11 +14,17 @@ export class cloudback extends actor2dbase {
     endAngle = Math.PI * 2;
     color = 'rgba(255, 255, 255, 0.75)';
 
+    #offscreenCanvas = null;
+
     constructor(game, following) {
         super(game, 0, 0, 0);
         this.layer = this.game.level.defaultLayer - 2;
         this.following = following;
         this.follow();
+
+        this.#offscreenCanvas = document.createElement('canvas');
+        this.#offscreenCanvas.width = this.game.view.width;
+        this.#offscreenCanvas.height = this.game.view.height;
     }
 
     initialize() {
